@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 800px;
+        }
+
+        .form-section {
+            padding: 40px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .preview-section {
+            padding: 40px;
+            background: white;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .template-selector {
+            margin-bottom: 30px;
+        }
+
+        .template-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .template-btn {
+            padding: 12px 20px;
+            border: 2px solid #3498db;
+            background: white;
+            color: #3498db;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .template-btn.active,
+        .template-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+        }
+
+        .cv-preview {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            min-height: 600px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Classic Template */
+        .template-classic {
+            padding: 40px;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .template-classic .cv-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .template-classic .cv-name {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .template-classic .cv-contact {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .template-classic .cv-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 3px solid #2c3e50;
+        }
+
+        .template-classic .cv-section {
+            margin-bottom: 25px;
+        }
+
+        .template-classic .cv-section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Modern Template */
+        .template-modern {
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            min-height: 600px;
+        }
+
+        .template-modern .cv-sidebar {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 30px;
+        }
+
+        .template-modern .cv-main {
+            padding: 40px;
+            background: white;
+        }
+
+        .template-modern .cv-name {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .template-modern .cv-contact {
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .template-modern .cv-section-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-modern .cv-sidebar .cv-section-title {
+            color: #ecf0f1;
+        }
+
+        .template-modern .cv-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 3px solid #3498db;
+        }
+
+        /* Creative Template */
+        .template-creative {
+            padding: 0;
+            font-family: 'Helvetica', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-creative::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .template-creative .cv-content {
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .template-creative .cv-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .template-creative .cv-name {
+            font-size: 2.5rem;
+            font-weight: 100;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .template-creative .cv-contact {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .template-creative .cv-section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-left: 4px solid white;
+            padding-left: 15px;
+        }
+
+        .template-creative .cv-section {
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .template-creative .cv-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 4px solid rgba(255,255,255,0.8);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .template-modern {
+                grid-template-columns: 1fr;
+            }
+            
+            .template-modern .cv-sidebar {
+                order: 2;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-section,
+            .preview-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Professional CV Builder</h1>
+            <p>Create stunning resumes with our easy-to-use builder</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="form-section">
+                <div class="template-selector">
+                    <label>Choose Template:</label>
+                    <div class="template-buttons">
+                        <button class="template-btn active" data-template="classic">Classic</button>
+                        <button class="template-btn" data-template="modern">Modern</button>
+                        <button class="template-btn" data-template="creative">Creative</button>
+                    </div>
+                </div>
+
+                <form id="cvForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo">Profile Photo</label>
+                        <input type="file" id="photo" accept="image/*" style="padding: 8px;">
+                        <div id="photoPreview" style="margin-top: 10px; text-align: center;"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="education">Education</label>
+                        <textarea id="education" placeholder="Bachelor of Science in Computer Science&#10;University of Technology, 2020-2024"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skills">Skills</label>
+                        <textarea id="skills" placeholder="JavaScript, Python, React, Node.js&#10;Project Management, Team Leadership"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experience">Work Experience</label>
+                        <textarea id="experience" placeholder="Software Developer | Tech Company (2022-Present)&#10;• Developed web applications using React and Node.js&#10;• Collaborated with cross-functional teams"></textarea>
+                    </div>
+
+                    <button type="button" class="download-btn" onclick="downloadPDF()">
+                        📄 Download CV as PDF
+                    </button>
+                </form>
+            </div>
+
+            <div class="preview-section">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Live Preview</h3>
+                <div class="cv-preview" id="cvPreview">
+                    <div class="template-classic" id="cvContent">
+                        <div class="cv-header">
+                            <img id="previewPhoto" class="cv-photo" style="display: none;">
+                            <div class="cv-name" id="previewName">Your Name</div>
+                            <div class="cv-contact" id="previewContact">
+                                <span id="previewEmail">your.email@example.com</span> | 
+                                <span id="previewPhone">+1 (555) 123-4567</span>
+                            </div>
+                        </div>
+
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div id="previewEducation">Your education details will appear here</div>
+                        </div>
+
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div id="previewSkills">Your skills will appear here</div>
+                        </div>
+
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTemplate = 'classic';
+
+        // Form inputs
+        const inputs = {
+            fullName: document.getElementById('fullName'),
+            email: document.getElementById('email'),
+            phone: document.getElementById('phone'),
+            education: document.getElementById('education'),
+            skills: document.getElementById('skills'),
+            experience: document.getElementById('experience'),
+            photo: document.getElementById('photo')
+        };
+
+        // Preview elements
+        const preview = {
+            name: document.getElementById('previewName'),
+            email: document.getElementById('previewEmail'),
+            phone: document.getElementById('previewPhone'),
+            contact: document.getElementById('previewContact'),
+            education: document.getElementById('previewEducation'),
+            skills: document.getElementById('previewSkills'),
+            experience: document.getElementById('previewExperience')
+        };
+
+        // Template buttons
+        const templateButtons = document.querySelectorAll('.template-btn');
+        const cvContent = document.getElementById('cvContent');
+
+        // Add event listeners to form inputs
+        Object.keys(inputs).forEach(key => {
+            if (key === 'photo') {
+                inputs[key].addEventListener('change', handlePhotoUpload);
+            } else {
+                inputs[key].addEventListener('input', updatePreview);
+            }
+        });
+
+        // Add event listeners to template buttons
+        templateButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                templateButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTemplate = btn.dataset.template;
+                updateTemplate();
+                updatePreview();
+            });
+        });
+
+        let photoDataUrl = '';
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoDataUrl = e.target.result;
+                    
+                    // Show preview in form
+                    const photoPreview = document.getElementById('photoPreview');
+                    photoPreview.innerHTML = `<img src="${photoDataUrl}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db;">`;
+                    
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updatePreview() {
+            const name = inputs.fullName.value || 'Your Name';
+            const email = inputs.email.value || 'your.email@example.com';
+            const phone = inputs.phone.value || '+1 (555) 123-4567';
+            const education = inputs.education.value || 'Your education details will appear here';
+            const skills = inputs.skills.value || 'Your skills will appear here';
+            const experience = inputs.experience.value || 'Your work experience will appear here';
+
+            preview.name.textContent = name;
+            preview.email.textContent = email;
+            preview.phone.textContent = phone;
+            preview.education.innerHTML = education.replace(/\n/g, '<br>');
+            preview.skills.innerHTML = skills.replace(/\n/g, '<br>');
+            preview.experience.innerHTML = experience.replace(/\n/g, '<br>');
+
+            // Update photo
+            const photoElement = document.getElementById('previewPhoto');
+            if (photoElement) {
+                if (photoDataUrl) {
+                    photoElement.src = photoDataUrl;
+                    photoElement.style.display = 'block';
+                } else {
+                    photoElement.style.display = 'none';
+                }
+            }
+        }
+
+        function updateTemplate() {
+            cvContent.className = `template-${currentTemplate}`;
+            
+            if (currentTemplate === 'modern') {
+                cvContent.innerHTML = `
+                    <div class="cv-sidebar">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div class="cv-contact" id="previewContact">
+                            <div id="previewEmail">your.email@example.com</div>
+                            <div id="previewPhone">+1 (555) 123-4567</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div id="previewSkills">Your skills will appear here</div>
+                        </div>
+                    </div>
+                    <div class="cv-main">
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'creative') {
+                cvContent.innerHTML = `
+                    <div class="cv-content">
+                        <div class="cv-header">
+                            <img id="previewPhoto" class="cv-photo" style="display: none;">
+                            <div class="cv-name" id="previewName">Your Name</div>
+                            <div class="cv-contact" id="previewContact">
+                                <span id="previewEmail">your.email@example.com</span> | 
+                                <span id="previewPhone">+1 (555) 123-4567</span>
+                            </div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div class="cv-contact" id="previewContact">
+                            <span id="previewEmail">your.email@example.com</span> | 
+                            <span id="previewPhone">+1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Education</div>
+                        <div id="previewEducation">Your education details will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Skills</div>
+                        <div id="previewSkills">Your skills will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Experience</div>
+                        <div id="previewExperience">Your work experience will appear here</div>
+                    </div>
+                `;
+            }
+
+            // Re-assign preview elements after template change
+            preview.name = document.getElementById('previewName');
+            preview.email = document.getElementById('previewEmail');
+            preview.phone = document.getElementById('previewPhone');
+            preview.contact = document.getElementById('previewContact');
+            preview.education = document.getElementById('previewEducation');
+            preview.skills = document.getElementById('previewSkills');
+            preview.experience = document.getElementById('previewExperience');
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('cvContent');
+            const name = inputs.fullName.value || 'CV';
+            
+            const opt = {
+                margin: 0.5,
+                filename: `${name.replace(/\s+/g, '_')}_CV.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Initialize preview
+        updatePreview();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96974b2385c2a8f0',t:'MTc1NDIzOTYxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
