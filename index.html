@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVCraft Pro - Professional CV Builder</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%233498db;stop-opacity:1' /><stop offset='100%25' style='stop-color:%232c3e50;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='white' stroke-width='3'/><text x='50' y='65' font-family='Arial,sans-serif' font-size='45' font-weight='bold' text-anchor='middle' fill='white'>CV</text></svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f39c12;stop-opacity:1' /><stop offset='100%25' style='stop-color:%23e67e22;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='60' font-family='Arial,sans-serif' font-size='32' font-weight='900' fill='white' text-anchor='middle'>CV</text></svg>" type="image/svg+xml">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,11 +16,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
             transition: all 0.3s ease;
+            letter-spacing: -0.01em;
         }
 
         body.dark-mode {
@@ -97,12 +99,34 @@
             font-weight: 700;
         }
 
-        .navbar-brand i {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .navbar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-weight: 900;
+            font-size: 18px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .navbar-brand .logo-icon::before {
+            content: 'CV';
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: -1px;
+        }
+        
+        .navbar-brand:hover .logo-icon {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         .navbar-nav {
@@ -1040,61 +1064,346 @@
             border-bottom: 2px solid #3498db;
         }
 
-        /* Minimal Template */
-        .template-minimal {
-            padding: 50px;
-            font-family: 'Helvetica Neue', sans-serif;
-            background: white;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .template-minimal .cv-header {
-            margin-bottom: 50px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .template-minimal .cv-name {
-            font-size: 2.2rem;
-            font-weight: 100;
-            margin-bottom: 15px;
+        /* Premium Template */
+        .template-premium {
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #2c3e50;
-            letter-spacing: -1px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .template-minimal .cv-contact {
-            font-size: 1rem;
-            color: #666;
-            font-weight: 300;
-        }
-
-        .template-minimal .cv-photo {
-            width: 80px;
-            height: 80px;
+        .template-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
             border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .template-premium::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(52, 152, 219, 0.1));
+            border-radius: 50%;
+            transform: translate(-30%, 30%);
+        }
+
+        .template-premium .cv-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 50px 40px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 30px;
+        }
+
+        .template-premium .cv-header::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+        }
+
+        .template-premium .cv-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
             object-fit: cover;
-            float: right;
-            margin-top: -60px;
-            border: 2px solid #eee;
+            border: 4px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            margin: 0 auto 25px;
+            display: block;
+            position: relative;
+            z-index: 2;
         }
 
-        .template-minimal .cv-section {
-            margin-bottom: 40px;
+        .template-premium .cv-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
         }
 
-        .template-minimal .cv-section-title {
+        .template-premium .cv-contact {
             font-size: 1.1rem;
-            font-weight: 600;
+            text-align: center;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .template-premium .cv-body {
+            padding: 0 40px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .template-premium .cv-section {
+            background: white;
+            margin-bottom: 25px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-premium .cv-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+            border-radius: 0 15px 0 50px;
+        }
+
+        .template-premium .cv-section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
             color: #2c3e50;
             margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 10px;
         }
 
-        .template-minimal .cv-section-content {
-            font-weight: 300;
-            color: #555;
+        .template-premium .cv-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            border-radius: 2px;
+        }
+
+        .template-premium .cv-section-content {
+            color: #34495e;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Executive Template */
+        .template-executive {
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .template-executive .cv-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .template-executive .cv-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #1a1a2e;
+        }
+
+        .template-executive .cv-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .template-executive .cv-contact {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .template-executive .cv-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 25px;
+            display: block;
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .template-executive .cv-body {
+            padding: 60px 40px 40px;
+        }
+
+        .template-executive .cv-section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        .template-executive .cv-section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Traditional Template */
+        .template-traditional {
+            padding: 40px;
+            font-family: 'Georgia', serif;
+            background: white;
+            color: #2c3e50;
+            line-height: 1.6;
+            border: 1px solid #bdc3c7;
+        }
+
+        .template-traditional .cv-header {
+            text-align: center;
+            border-bottom: 3px double #2c3e50;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .template-traditional .cv-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            border: 2px solid #2c3e50;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .template-traditional .cv-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-traditional .cv-contact {
+            font-size: 1rem;
+            color: #34495e;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .template-traditional .cv-section {
+            margin-bottom: 25px;
+        }
+
+        .template-traditional .cv-section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 5px;
+        }
+
+        .template-traditional .cv-section-content {
+            color: #2c3e50;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* ATS Optimized Template */
+        .template-ats {
+            padding: 40px;
+            font-family: 'Arial', sans-serif;
+            background: white;
+            color: #000;
+            line-height: 1.5;
+            font-size: 11pt;
+        }
+
+        .template-ats .cv-header {
+            text-align: left;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .template-ats .cv-name {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        .template-ats .cv-contact {
+            font-size: 10pt;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        .template-ats .cv-photo {
+            display: none; /* ATS systems prefer no photos */
+        }
+
+        .template-ats .cv-section {
+            margin-bottom: 20px;
+        }
+
+        .template-ats .cv-section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
+        }
+
+        .template-ats .cv-section-content {
+            font-size: 11pt;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        .template-ats ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .template-ats li {
+            margin-bottom: 3px;
         }
 
         @media (max-width: 768px) {
@@ -1126,8 +1435,8 @@
     <nav class="navbar">
         <div class="navbar-content">
             <a href="#" class="navbar-brand" onclick="showHome()">
-                <i class="fas fa-file-alt"></i>
-                CVCraft Pro
+                <div class="logo-icon"></div>
+                <span style="font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CVCraft Pro</span>
             </a>
             <div class="navbar-nav">
                 <a href="#" class="nav-link" onclick="showHome()">Home</a>
@@ -1180,6 +1489,20 @@
                 <button type="submit" class="download-btn" onclick="handleLogin(event)">
                     <i class="fas fa-sign-in-alt"></i> Login to Account
                 </button>
+                
+                <div style="margin: 20px 0; text-align: center; position: relative;">
+                    <div style="border-top: 1px solid #ddd; margin: 20px 0;"></div>
+                    <span style="background: white; padding: 0 15px; color: #666; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">or continue with</span>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <button type="button" onclick="loginWithGoogle()" style="flex: 1; padding: 12px; background: #db4437; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button type="button" onclick="loginWithFacebook()" style="flex: 1; padding: 12px; background: #4267B2; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                </div>
             </form>
 
             <!-- Sign Up Form -->
@@ -1209,6 +1532,20 @@
                 <button type="submit" class="download-btn" onclick="handleSignup(event)">
                     <i class="fas fa-user-plus"></i> Create Account
                 </button>
+                
+                <div style="margin: 20px 0; text-align: center; position: relative;">
+                    <div style="border-top: 1px solid #ddd; margin: 20px 0;"></div>
+                    <span style="background: white; padding: 0 15px; color: #666; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">or sign up with</span>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <button type="button" onclick="signupWithGoogle()" style="flex: 1; padding: 12px; background: #db4437; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button type="button" onclick="signupWithFacebook()" style="flex: 1; padding: 12px; background: #4267B2; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                </div>
             </form>
 
             <!-- Forgot Password Form -->
@@ -1245,14 +1582,17 @@
                     <div style="background: linear-gradient(135deg, #3498db, #2980b9); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
                         <i class="fas fa-palette" style="font-size: 2rem; color: white;"></i>
                     </div>
-                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">5 Professional Templates</h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Choose from Classic, Modern, Creative, Professional, and Minimal designs. Each template is carefully crafted by professional designers to make you stand out.</p>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">8 Professional Templates</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Choose from 8 expertly designed templates including ATS-optimized formats. Each template is crafted by professional designers to help you stand out and get past applicant tracking systems.</p>
                     <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Classic - Traditional and timeless</li>
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Modern - Two-column layout</li>
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Creative - Colorful and unique</li>
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Professional - Corporate style</li>
-                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Minimal - Clean and simple</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Premium - Sophisticated and elegant</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Executive - Premium luxury design</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Traditional - Classic and formal</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>ATS Optimized - Beats tracking systems</li>
                     </ul>
                 </div>
 
@@ -1424,7 +1764,7 @@
                             <div style="font-size: 0.9rem; color: #666;">Days Active</div>
                         </div>
                         <div>
-                            <div style="font-size: 2rem; font-weight: 700; color: #f39c12;">5</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #f39c12;">8</div>
                             <div style="font-size: 0.9rem; color: #666;">Templates</div>
                         </div>
                     </div>
@@ -1452,7 +1792,10 @@
                         <button class="template-btn" data-template="modern">Modern</button>
                         <button class="template-btn" data-template="creative">Creative</button>
                         <button class="template-btn" data-template="professional">Professional</button>
-                        <button class="template-btn" data-template="minimal">Minimal</button>
+                        <button class="template-btn" data-template="premium">Premium</button>
+                        <button class="template-btn" data-template="executive">Executive</button>
+                        <button class="template-btn" data-template="traditional">Traditional</button>
+                        <button class="template-btn" data-template="ats">ATS Optimized</button>
                     </div>
                 </div>
 
@@ -1778,7 +2121,77 @@
         function updateTemplate() {
             cvContent.className = `template-${currentTemplate}`;
             
-            if (currentTemplate === 'professional') {
+            if (currentTemplate === 'executive') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div class="cv-contact" id="previewContact">
+                            <span id="previewEmail">your.email@example.com</span> | 
+                            <span id="previewPhone">+1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                    <div class="cv-body">
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'traditional') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div class="cv-contact" id="previewContact">
+                            <span id="previewEmail">your.email@example.com</span> | 
+                            <span id="previewPhone">+1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Education</div>
+                        <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Skills</div>
+                        <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Experience</div>
+                        <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'ats') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div class="cv-contact" id="previewContact">
+                            <span id="previewEmail">your.email@example.com</span> | 
+                            <span id="previewPhone">+1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Education</div>
+                        <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Skills</div>
+                        <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Experience</div>
+                        <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'professional') {
                 cvContent.innerHTML = `
                     <div class="cv-header">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
@@ -1805,27 +2218,29 @@
                         </div>
                     </div>
                 `;
-            } else if (currentTemplate === 'minimal') {
+            } else if (currentTemplate === 'premium') {
                 cvContent.innerHTML = `
                     <div class="cv-header">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
                         <div class="cv-name" id="previewName">Your Name</div>
                         <div class="cv-contact" id="previewContact">
                             <span id="previewEmail">your.email@example.com</span> | 
                             <span id="previewPhone">+1 (555) 123-4567</span>
                         </div>
-                        <img id="previewPhoto" class="cv-photo" style="display: none;">
                     </div>
-                    <div class="cv-section">
-                        <div class="cv-section-title">Education</div>
-                        <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
-                    </div>
-                    <div class="cv-section">
-                        <div class="cv-section-title">Skills</div>
-                        <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
-                    </div>
-                    <div class="cv-section">
-                        <div class="cv-section-title">Experience</div>
-                        <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                    <div class="cv-body">
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                        </div>
                     </div>
                 `;
             } else if (currentTemplate === 'modern') {
@@ -2567,10 +2982,35 @@
             }, 500);
         }
 
+        // Social Login Functions
+        function loginWithGoogle() {
+            // Simulate Google OAuth flow
+            showNotification('Google login integration coming soon! Please use email login for now.', 'info');
+            // In a real implementation, this would redirect to Google OAuth
+            // window.location.href = 'https://accounts.google.com/oauth/authorize?...';
+        }
+
+        function loginWithFacebook() {
+            // Simulate Facebook OAuth flow
+            showNotification('Facebook login integration coming soon! Please use email login for now.', 'info');
+            // In a real implementation, this would use Facebook SDK
+            // FB.login(function(response) { ... });
+        }
+
+        function signupWithGoogle() {
+            // Simulate Google OAuth flow for signup
+            showNotification('Google signup integration coming soon! Please use email signup for now.', 'info');
+        }
+
+        function signupWithFacebook() {
+            // Simulate Facebook OAuth flow for signup
+            showNotification('Facebook signup integration coming soon! Please use email signup for now.', 'info');
+        }
+
         // Initialize everything
         loadTheme();
         updatePreview();
         checkAuthStatus();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b059d300478b7f',t:'MTc1NDUwMjM1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b1df23031a2b24',t:'MTc1NDUxODMwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
