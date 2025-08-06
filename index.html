@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional CV Builder</title>
+    <title>CVCraft Pro - Professional CV Builder</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%233498db;stop-opacity:1' /><stop offset='100%25' style='stop-color:%232c3e50;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='white' stroke-width='3'/><text x='50' y='65' font-family='Arial,sans-serif' font-size='45' font-weight='bold' text-anchor='middle' fill='white'>CV</text></svg>" type="image/svg+xml">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -64,25 +65,414 @@
             border-color: #3742fa;
         }
 
-        .theme-toggle {
+        /* Navigation Bar */
+        .navbar {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .navbar-brand i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            z-index: 1000;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 200px;
+            display: none;
+            overflow: hidden;
+        }
+
+        body.dark-mode .user-dropdown {
+            background: #2c2c54;
+            border: 1px solid #706fd3;
+        }
+
+        .user-dropdown a {
+            display: block;
+            padding: 12px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        body.dark-mode .user-dropdown a {
+            color: #e0e0e0;
+            border-bottom: 1px solid #40407a;
+        }
+
+        .user-dropdown a:hover {
+            background: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        body.dark-mode .user-dropdown a:hover {
+            background: #40407a;
+        }
+
+        .user-dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
         }
 
         .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Auth Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        body.dark-mode .modal {
+            background: #2c2c54;
+            color: #e0e0e0;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        body.dark-mode .modal-header h2 {
+            color: #e0e0e0;
+        }
+
+        .modal-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .modal-header p {
+            color: #bbb;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        body.dark-mode .auth-tabs {
+            background: #40407a;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #666;
+        }
+
+        body.dark-mode .auth-tab {
+            color: #bbb;
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: #2c3e50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .auth-tab.active {
+            background: #2c2c54;
+            color: #e0e0e0;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #e74c3c;
+            transform: scale(1.1);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            padding-top: 80px;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .dashboard-card {
+            background: #2c2c54;
+            color: #e0e0e0;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.dark-mode .dashboard-card h3 {
+            color: #e0e0e0;
+        }
+
+        .dashboard-card i {
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+
+        .cv-history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .cv-history-item {
+            background: #40407a;
+        }
+
+        .cv-history-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        body.dark-mode .cv-history-item:hover {
+            background: #706fd3;
+        }
+
+        .payment-history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            background: #f8f9fa;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .payment-history-item {
+            background: #40407a;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        body.dark-mode .status-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        body.dark-mode .status-pending {
+            background: #f39c12;
+            color: white;
         }
 
         .chatbot-container {
@@ -217,24 +607,80 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
+            margin-top: 80px;
+            display: none;
+        }
+
+        .container.active {
+            display: block;
         }
 
         .header {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
-            padding: 30px;
+            padding: 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-50px) translateY(-50px); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 300;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            color: #ecf0f1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .main-content {
@@ -676,12 +1122,325 @@
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-    
-    <div class="container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#" class="navbar-brand" onclick="showHome()">
+                <i class="fas fa-file-alt"></i>
+                CVCraft Pro
+            </a>
+            <div class="navbar-nav">
+                <a href="#" class="nav-link" onclick="showHome()">Home</a>
+                <a href="#" class="nav-link" onclick="showFeatures()">Features</a>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()" id="userAvatar">JD</div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" onclick="showDashboard()"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+                <div id="authButtons">
+                    <a href="#" class="nav-link" onclick="showAuthModal('login')">Login</a>
+                    <a href="#" class="nav-link" onclick="showAuthModal('signup')">Sign Up</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Authentication Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+            <div class="modal-header">
+                <h2 id="modalTitle">Welcome to CVCraft Pro</h2>
+                <p id="modalSubtitle">Create professional CVs in minutes</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <a href="#" onclick="showForgotPassword()" style="color: #3498db; text-decoration: none; font-size: 0.9rem;">Forgot Password?</a>
+                </div>
+                <button type="submit" class="download-btn" onclick="handleLogin(event)">
+                    <i class="fas fa-sign-in-alt"></i> Login to Account
+                </button>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password (min 8 characters)" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; cursor: pointer;">
+                        <input type="checkbox" id="agreeTerms" required>
+                        I agree to the <a href="#" style="color: #3498db;">Terms of Service</a> and <a href="#" style="color: #3498db;">Privacy Policy</a>
+                    </label>
+                </div>
+                <button type="submit" class="download-btn" onclick="handleSignup(event)">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form class="auth-form" id="forgotForm">
+                <div class="form-group">
+                    <label for="forgotEmail">Email Address</label>
+                    <input type="email" id="forgotEmail" placeholder="Enter your email address" required>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                    We'll send you a link to reset your password.
+                </p>
+                <button type="submit" class="download-btn" onclick="handleForgotPassword(event)">
+                    <i class="fas fa-paper-plane"></i> Send Reset Link
+                </button>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="#" onclick="switchAuthTab('login')" style="color: #3498db; text-decoration: none; font-size: 0.9rem;">Back to Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Features Page -->
+    <div class="features-page" id="featuresPage" style="display: none; padding-top: 80px;">
+        <div class="features-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white; padding: 60px 20px; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 20px; font-weight: 700;">Powerful Features</h1>
+            <p style="font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Everything you need to create professional CVs that get you hired</p>
+        </div>
+        
+        <div class="features-content" style="max-width: 1200px; margin: 0 auto; padding: 60px 20px;">
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px;">
+                
+                <!-- Professional Templates -->
+                <div class="feature-card" style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, #3498db, #2980b9); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                        <i class="fas fa-palette" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">5 Professional Templates</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Choose from Classic, Modern, Creative, Professional, and Minimal designs. Each template is carefully crafted by professional designers to make you stand out.</p>
+                    <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Classic - Traditional and timeless</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Modern - Two-column layout</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Creative - Colorful and unique</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Professional - Corporate style</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Minimal - Clean and simple</li>
+                    </ul>
+                </div>
+
+                <!-- Live Preview -->
+                <div class="feature-card" style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, #27ae60, #2ecc71); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                        <i class="fas fa-eye" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">Real-Time Live Preview</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">See your CV update instantly as you type. No waiting, no guessing - what you see is exactly what you get in your final PDF.</p>
+                    <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Instant updates as you type</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Switch templates in real-time</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Photo preview integration</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Perfect formatting guaranteed</li>
+                    </ul>
+                </div>
+
+                <!-- User Authentication -->
+                <div class="feature-card" style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                        <i class="fas fa-shield-alt" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">Secure User Accounts</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Create your personal account to track your CVs, payment history, and access your documents anytime, anywhere.</p>
+                    <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Secure login & registration</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Password reset functionality</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>7-day session management</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Personal dashboard</li>
+                    </ul>
+                </div>
+
+                <!-- Payment System -->
+                <div class="feature-card" style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, #f39c12, #e67e22); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                        <i class="fas fa-credit-card" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">Secure Payment Processing</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Simple, transparent pricing at just $1 per CV. Secure payment processing with complete transaction history tracking.</p>
+                    <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>$1.00 per CV - No hidden fees</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Encrypted payment processing</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Complete payment history</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Instant receipt generation</li>
+                    </ul>
+                </div>
+
+                <!-- PDF Generation -->
+                <div class="feature-card" style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, #9b59b6, #8e44ad); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                        <i class="fas fa-file-pdf" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">High-Quality PDF Export</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Generate professional PDF files that maintain perfect formatting, high-resolution images, and are ready for printing or digital sharing.</p>
+                    <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>High-resolution PDF output</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Perfect formatting preservation</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Print-ready quality</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Instant download</li>
+                    </ul>
+                </div>
+
+                <!-- Dashboard & History -->
+                <div class="feature-card" style="background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div style="background: linear-gradient(135deg, #1abc9c, #16a085); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                        <i class="fas fa-tachometer-alt" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">Personal Dashboard</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Access your personal dashboard to manage all your CVs, view payment history, and track your account statistics in one place.</p>
+                    <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>CV history & management</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Payment transaction history</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Account statistics</li>
+                        <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Quick CV re-download</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Additional Features Section -->
+            <div style="background: #f8f9fa; border-radius: 20px; padding: 50px; margin-bottom: 60px;">
+                <h2 style="text-align: center; color: #2c3e50; margin-bottom: 40px; font-size: 2.2rem;">Additional Features</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div style="text-align: center;">
+                        <i class="fas fa-mobile-alt" style="font-size: 3rem; color: #3498db; margin-bottom: 15px;"></i>
+                        <h4 style="color: #2c3e50; margin-bottom: 10px;">Mobile Responsive</h4>
+                        <p style="color: #666; font-size: 0.95rem;">Works perfectly on all devices - desktop, tablet, and mobile</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class="fas fa-moon" style="font-size: 3rem; color: #3498db; margin-bottom: 15px;"></i>
+                        <h4 style="color: #2c3e50; margin-bottom: 10px;">Dark Mode</h4>
+                        <p style="color: #666; font-size: 0.95rem;">Toggle between light and dark themes for comfortable viewing</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class="fas fa-robot" style="font-size: 3rem; color: #3498db; margin-bottom: 15px;"></i>
+                        <h4 style="color: #2c3e50; margin-bottom: 10px;">AI Assistant</h4>
+                        <p style="color: #666; font-size: 0.95rem;">Built-in chatbot to help with CV writing tips and questions</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class="fas fa-camera" style="font-size: 3rem; color: #3498db; margin-bottom: 15px;"></i>
+                        <h4 style="color: #2c3e50; margin-bottom: 10px;">Photo Upload</h4>
+                        <p style="color: #666; font-size: 0.95rem;">Add professional photos with automatic resizing and positioning</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy & Security -->
+            <div style="background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 20px; padding: 50px; text-align: center;">
+                <h2 style="margin-bottom: 30px; font-size: 2.2rem;">Privacy & Security First</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <div>
+                        <i class="fas fa-lock" style="font-size: 2.5rem; margin-bottom: 15px; color: #3498db;"></i>
+                        <h4 style="margin-bottom: 10px;">Data Encryption</h4>
+                        <p style="opacity: 0.9; font-size: 0.95rem;">All data is encrypted using industry-standard protocols</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-trash-alt" style="font-size: 2.5rem; margin-bottom: 15px; color: #3498db;"></i>
+                        <h4 style="margin-bottom: 10px;">Auto-Delete</h4>
+                        <p style="opacity: 0.9; font-size: 0.95rem;">Uploaded photos and data are automatically deleted after PDF generation</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-user-shield" style="font-size: 2.5rem; margin-bottom: 15px; color: #3498db;"></i>
+                        <h4 style="margin-bottom: 10px;">No Data Sharing</h4>
+                        <p style="opacity: 0.9; font-size: 0.95rem;">Your personal information is never shared with third parties</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h1>Welcome back, <span id="dashboardUserName">John</span>!</h1>
+            <p>Manage your CVs, view payment history, and create new resumes</p>
+        </div>
+        <div class="dashboard-content">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-file-alt"></i> My CVs</h3>
+                    <div id="cvHistory">
+                        <p style="text-align: center; color: #666; padding: 20px;">No CVs created yet. Click "Create New CV" to get started!</p>
+                    </div>
+                    <button onclick="showCVBuilder()" style="width: 100%; margin-top: 20px; padding: 12px; background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                        <i class="fas fa-plus"></i> Create New CV
+                    </button>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-credit-card"></i> Payment History</h3>
+                    <div id="paymentHistory">
+                        <p style="text-align: center; color: #666; padding: 20px;">No payments yet. Create your first CV to see payment history here.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-chart-line"></i> Account Stats</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #3498db;" id="userCVCount">0</div>
+                            <div style="font-size: 0.9rem; color: #666;">CVs Created</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #27ae60;" id="userTotalSpent">$0.00</div>
+                            <div style="font-size: 0.9rem; color: #666;">Total Spent</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #e74c3c;" id="userDaysActive">1</div>
+                            <div style="font-size: 0.9rem; color: #666;">Days Active</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #f39c12;">5</div>
+                            <div style="font-size: 0.9rem; color: #666;">Templates</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV Builder Container -->
+    <div class="container" id="cvBuilder">
         <div class="header">
-            <h1>Professional CV Builder</h1>
-            <p>Create stunning resumes with our easy-to-use builder</p>
+            <div class="header-content">
+                <h1>CVCraft Pro</h1>
+                <p>Create stunning, professional CVs in minutes with our advanced builder</p>
+
+            </div>
         </div>
         
         <div class="main-content">
@@ -1337,9 +2096,481 @@
             return `🤔 I'm not sure about that specific question, but I'd be happy to help! I can assist with:<br><br>• CV writing tips and advice<br>• Template information<br>• Payment and pricing details<br>• Privacy and security questions<br>• Technical support<br><br>For anything else, please contact our developer directly at <strong>tonyazer86@gmail.com</strong> - they'll be able to give you a detailed answer within 24 hours!`;
         }
 
+        // Authentication System
+        let currentUser = null;
+        let userDatabase = JSON.parse(localStorage.getItem('cvcraft_users') || '{}');
+        let userSessions = JSON.parse(localStorage.getItem('cvcraft_sessions') || '{}');
+
+        // Check if user is logged in on page load
+        function checkAuthStatus() {
+            const sessionToken = localStorage.getItem('cvcraft_session');
+            if (sessionToken && userSessions[sessionToken]) {
+                const userData = userSessions[sessionToken];
+                if (userData.expires > Date.now()) {
+                    currentUser = userData;
+                    showUserInterface();
+                    return true;
+                }
+            }
+            showGuestInterface();
+            return false;
+        }
+
+        function showUserInterface() {
+            document.getElementById('authButtons').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'block';
+            document.getElementById('userAvatar').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('dashboardUserName').textContent = currentUser.name;
+            showDashboard();
+        }
+
+        function showGuestInterface() {
+            document.getElementById('authButtons').style.display = 'flex';
+            document.getElementById('userMenu').style.display = 'none';
+            showCVBuilder();
+        }
+
+        function showAuthModal(type) {
+            const modal = document.getElementById('authModal');
+            modal.classList.add('active');
+            switchAuthTab(type);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function switchAuthTab(type) {
+            // Update tabs
+            document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            
+            if (type === 'login') {
+                document.querySelector('.auth-tab:first-child').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('modalTitle').textContent = 'Welcome Back!';
+                document.getElementById('modalSubtitle').textContent = 'Sign in to access your dashboard';
+            } else if (type === 'signup') {
+                document.querySelector('.auth-tab:last-child').classList.add('active');
+                document.getElementById('signupForm').classList.add('active');
+                document.getElementById('modalTitle').textContent = 'Join CVCraft Pro';
+                document.getElementById('modalSubtitle').textContent = 'Create your account in seconds';
+            }
+        }
+
+        function showForgotPassword() {
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            document.getElementById('forgotForm').classList.add('active');
+            document.getElementById('modalTitle').textContent = 'Reset Password';
+            document.getElementById('modalSubtitle').textContent = 'Enter your email to receive reset instructions';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (userDatabase[email] && userDatabase[email].password === password) {
+                // Create session
+                const sessionToken = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                const sessionData = {
+                    ...userDatabase[email],
+                    expires: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 days
+                };
+                
+                userSessions[sessionToken] = sessionData;
+                localStorage.setItem('cvcraft_sessions', JSON.stringify(userSessions));
+                localStorage.setItem('cvcraft_session', sessionToken);
+                
+                currentUser = sessionData;
+                closeAuthModal();
+                showUserInterface();
+                
+                // Show success message
+                showNotification('Welcome back! Login successful.', 'success');
+            } else {
+                showNotification('Invalid email or password. Please try again.', 'error');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match!', 'error');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                showNotification('Please agree to the Terms of Service and Privacy Policy.', 'error');
+                return;
+            }
+            
+            if (userDatabase[email]) {
+                showNotification('An account with this email already exists.', 'error');
+                return;
+            }
+            
+            // Create user
+            const userData = {
+                name: name,
+                email: email,
+                password: password, // In real app, this would be hashed
+                createdAt: Date.now(),
+                cvHistory: [],
+                paymentHistory: []
+            };
+            
+            userDatabase[email] = userData;
+            localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
+            
+            // Auto login
+            const sessionToken = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            const sessionData = {
+                ...userData,
+                expires: Date.now() + (7 * 24 * 60 * 60 * 1000)
+            };
+            
+            userSessions[sessionToken] = sessionData;
+            localStorage.setItem('cvcraft_sessions', JSON.stringify(userSessions));
+            localStorage.setItem('cvcraft_session', sessionToken);
+            
+            currentUser = sessionData;
+            closeAuthModal();
+            showUserInterface();
+            
+            showNotification('Account created successfully! Welcome to CVCraft Pro.', 'success');
+        }
+
+        function handleForgotPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            
+            if (userDatabase[email]) {
+                // In a real app, this would send an actual email
+                showNotification('Password reset link sent to your email!', 'success');
+                setTimeout(() => {
+                    switchAuthTab('login');
+                }, 2000);
+            } else {
+                showNotification('No account found with this email address.', 'error');
+            }
+        }
+
+        function logout() {
+            const sessionToken = localStorage.getItem('cvcraft_session');
+            if (sessionToken) {
+                delete userSessions[sessionToken];
+                localStorage.setItem('cvcraft_sessions', JSON.stringify(userSessions));
+                localStorage.removeItem('cvcraft_session');
+            }
+            
+            currentUser = null;
+            showGuestInterface();
+            showNotification('Logged out successfully!', 'success');
+        }
+
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('userMenu');
+            const dropdown = document.getElementById('userDropdown');
+            if (!userMenu.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Navigation functions
+        function showHome() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('cvBuilder').classList.remove('active');
+            document.getElementById('featuresPage').style.display = 'none';
+            // In a real app, this would show a home page
+            if (currentUser) {
+                showDashboard();
+            } else {
+                showCVBuilder();
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('dashboard').classList.add('active');
+            document.getElementById('cvBuilder').classList.remove('active');
+            document.getElementById('featuresPage').style.display = 'none';
+            loadUserData();
+        }
+
+        function showCVBuilder() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('cvBuilder').classList.add('active');
+            document.getElementById('featuresPage').style.display = 'none';
+        }
+
+        function showFeatures() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('cvBuilder').classList.remove('active');
+            document.getElementById('featuresPage').style.display = 'block';
+        }
+
+        function showProfile() {
+            showNotification('Profile settings coming soon!', 'info');
+        }
+
+        function showSettings() {
+            showNotification('Settings page coming soon!', 'info');
+        }
+
+        function loadUserData() {
+            if (!currentUser) return;
+            
+            // Update dashboard with user data
+            const user = userDatabase[currentUser.email];
+            if (user) {
+                document.getElementById('dashboardUserName').textContent = user.name;
+                
+                // Update CV history
+                const cvHistoryContainer = document.getElementById('cvHistory');
+                if (user.cvHistory && user.cvHistory.length > 0) {
+                    cvHistoryContainer.innerHTML = user.cvHistory.map(cv => `
+                        <div class="cv-history-item">
+                            <div>
+                                <strong>${cv.name}</strong>
+                                <div style="font-size: 0.9rem; color: #666;">Created: ${new Date(cv.createdAt).toLocaleDateString()}</div>
+                            </div>
+                            <div>
+                                <span class="status-badge status-success">Completed</span>
+                                <button onclick="downloadCV('${cv.id}')" style="margin-left: 10px; padding: 5px 10px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    cvHistoryContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No CVs created yet. Click "Create New CV" to get started!</p>';
+                }
+                
+                // Update payment history
+                const paymentHistoryContainer = document.getElementById('paymentHistory');
+                if (user.paymentHistory && user.paymentHistory.length > 0) {
+                    paymentHistoryContainer.innerHTML = user.paymentHistory.map(payment => `
+                        <div class="payment-history-item">
+                            <div>
+                                <strong>CV Generation</strong>
+                                <div style="font-size: 0.9rem; color: #666;">${new Date(payment.date).toLocaleString()}</div>
+                            </div>
+                            <div>
+                                <strong style="color: #27ae60;">$${payment.amount}</strong>
+                                <span class="status-badge status-success">Paid</span>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    paymentHistoryContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No payments yet. Create your first CV to see payment history here.</p>';
+                }
+
+                // Update account statistics with real data
+                const cvCount = user.cvHistory ? user.cvHistory.length : 0;
+                const totalSpent = user.paymentHistory ? user.paymentHistory.reduce((sum, payment) => sum + parseFloat(payment.amount), 0).toFixed(2) : '0.00';
+                const daysActive = Math.ceil((Date.now() - user.createdAt) / (1000 * 60 * 60 * 24));
+                
+                document.getElementById('userCVCount').textContent = cvCount;
+                document.getElementById('userTotalSpent').textContent = `$${totalSpent}`;
+                document.getElementById('userDaysActive').textContent = daysActive;
+            }
+        }
+
+        function downloadCV(cvId) {
+            showNotification('CV download started!', 'success');
+            // In a real app, this would download the actual CV file
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 3000;
+                font-weight: 600;
+                max-width: 300px;
+                word-wrap: break-word;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add CSS for notification animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced payment processing with user tracking
+        function processPayment() {
+            if (!currentUser) {
+                showNotification('Please login to make a payment.', 'error');
+                showAuthModal('login');
+                return;
+            }
+            
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCvv = document.getElementById('cardCvv').value;
+            
+            // Basic validation
+            if (!cardNumber || cardNumber.replace(/\s/g, '').length < 16) {
+                showNotification('Please enter a valid card number', 'error');
+                return;
+            }
+            
+            if (!cardExpiry || cardExpiry.length < 5) {
+                showNotification('Please enter a valid expiry date', 'error');
+                return;
+            }
+            
+            if (!cardCvv || cardCvv.length < 3) {
+                showNotification('Please enter a valid CVV', 'error');
+                return;
+            }
+            
+            const payBtn = document.getElementById('payBtn');
+            const originalText = payBtn.textContent;
+            payBtn.textContent = '💳 Processing Payment...';
+            payBtn.disabled = true;
+            
+            setTimeout(() => {
+                paymentCompleted = true;
+                
+                // Add payment to user history
+                const user = userDatabase[currentUser.email];
+                if (!user.paymentHistory) user.paymentHistory = [];
+                user.paymentHistory.push({
+                    id: 'payment_' + Date.now(),
+                    amount: '1.00',
+                    date: Date.now(),
+                    status: 'completed'
+                });
+                
+                // Save to localStorage
+                localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
+                
+                document.getElementById('paymentForm').style.display = 'none';
+                payBtn.style.display = 'none';
+                document.getElementById('paymentSuccess').style.display = 'block';
+                
+                showNotification('Payment successful! You can now download your CV.', 'success');
+            }, 2000);
+        }
+
+        // Enhanced download with user tracking
+        function downloadPDF() {
+            if (!paymentCompleted) {
+                showNotification('Please complete payment first to download your CV.', 'error');
+                return;
+            }
+            
+            const element = document.getElementById('cvPreview');
+            const name = inputs.fullName.value || 'CV';
+            
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.textContent = '📄 Generating PDF...';
+            downloadBtn.disabled = true;
+
+            // Ensure photo is properly set before PDF generation
+            const photoElement = document.getElementById('previewPhoto');
+            if (photoElement && photoDataUrl) {
+                photoElement.src = photoDataUrl;
+                photoElement.style.display = 'block';
+                photoElement.crossOrigin = 'anonymous';
+            }
+
+            const opt = {
+                margin: 0.5,
+                filename: `${name.replace(/\s+/g, '_')}_CV.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    onclone: function(clonedDoc) {
+                        const clonedPhoto = clonedDoc.querySelector('#previewPhoto');
+                        if (clonedPhoto && photoDataUrl) {
+                            clonedPhoto.src = photoDataUrl;
+                            clonedPhoto.style.display = 'block';
+                            clonedPhoto.crossOrigin = 'anonymous';
+                        }
+                    }
+                },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    downloadBtn.textContent = originalText;
+                    downloadBtn.disabled = false;
+                    
+                    // Add CV to user history if logged in
+                    if (currentUser) {
+                        const user = userDatabase[currentUser.email];
+                        if (!user.cvHistory) user.cvHistory = [];
+                        user.cvHistory.push({
+                            id: 'cv_' + Date.now(),
+                            name: name + ' CV',
+                            template: currentTemplate,
+                            createdAt: Date.now()
+                        });
+                        localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
+                    }
+                    
+                    showNotification('CV downloaded successfully!', 'success');
+                }).catch((error) => {
+                    console.error('PDF generation failed:', error);
+                    downloadBtn.textContent = originalText;
+                    downloadBtn.disabled = false;
+                    showNotification('PDF generation failed. Please try again.', 'error');
+                });
+            }, 500);
+        }
+
         // Initialize everything
         loadTheme();
         updatePreview();
+        checkAuthStatus();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b01c1c547073c7',t:'MTc1NDQ5OTgyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b059d300478b7f',t:'MTc1NDUwMjM1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
