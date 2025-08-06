@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional CV Builder</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%233498db;stop-opacity:1' /><stop offset='100%25' style='stop-color:%232c3e50;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='white' stroke-width='3'/><text x='50' y='65' font-family='Arial,sans-serif' font-size='45' font-weight='bold' text-anchor='middle' fill='white'>CV</text></svg>" type="image/svg+xml">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * {
@@ -17,6 +18,196 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode .container {
+            background: #2c2c54;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .form-section {
+            background: #40407a;
+            border-right: 1px solid #706fd3;
+        }
+
+        body.dark-mode .form-group label {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: #2c2c54;
+            border: 2px solid #706fd3;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .form-group input:focus,
+        body.dark-mode .form-group textarea:focus {
+            border-color: #3742fa;
+            box-shadow: 0 0 0 3px rgba(55, 66, 250, 0.1);
+        }
+
+        body.dark-mode .template-btn {
+            background: #2c2c54;
+            border: 2px solid #706fd3;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .template-btn.active,
+        body.dark-mode .template-btn:hover {
+            background: #3742fa;
+            border-color: #3742fa;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(52, 152, 219, 0.6);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body.dark-mode .chatbot-window {
+            background: #2c2c54;
+            color: #e0e0e0;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chatbot-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .chatbot-message.user {
+            background: #3498db;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-message.bot {
+            background: #ecf0f1;
+            color: #2c3e50;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        body.dark-mode .chatbot-message.bot {
+            background: #40407a;
+            color: #e0e0e0;
+        }
+
+        .chatbot-input-container {
+            padding: 15px;
+            border-top: 1px solid #ecf0f1;
+            display: flex;
+            gap: 10px;
+        }
+
+        body.dark-mode .chatbot-input-container {
+            border-top: 1px solid #706fd3;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        body.dark-mode .chatbot-input {
+            background: #40407a;
+            border: 1px solid #706fd3;
+            color: #e0e0e0;
+        }
+
+        .chatbot-send {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
@@ -97,6 +288,8 @@
         .form-group textarea {
             resize: vertical;
             min-height: 100px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .template-selector {
@@ -162,6 +355,8 @@
             font-family: 'Times New Roman', serif;
             line-height: 1.6;
             color: #333;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .template-classic .cv-header {
@@ -172,7 +367,7 @@
         }
 
         .template-classic .cv-name {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             margin-bottom: 10px;
             color: #2c3e50;
@@ -227,7 +422,7 @@
         }
 
         .template-modern .cv-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 300;
             margin-bottom: 20px;
             text-align: center;
@@ -296,7 +491,7 @@
         }
 
         .template-creative .cv-name {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 100;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -336,6 +531,126 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
+        /* Professional Template */
+        .template-professional {
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background: #f8f9fa;
+            border-left: 8px solid #2c3e50;
+        }
+
+        .template-professional .cv-header {
+            background: #2c3e50;
+            color: white;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .template-professional .cv-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 4px solid white;
+            flex-shrink: 0;
+        }
+
+        .template-professional .cv-header-text {
+            flex: 1;
+        }
+
+        .template-professional .cv-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .template-professional .cv-contact {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .template-professional .cv-body {
+            padding: 40px;
+        }
+
+        .template-professional .cv-section {
+            margin-bottom: 35px;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .template-professional .cv-section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        /* Minimal Template */
+        .template-minimal {
+            padding: 50px;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: white;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .template-minimal .cv-header {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .template-minimal .cv-name {
+            font-size: 2.2rem;
+            font-weight: 100;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            letter-spacing: -1px;
+        }
+
+        .template-minimal .cv-contact {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .template-minimal .cv-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            float: right;
+            margin-top: -60px;
+            border: 2px solid #eee;
+        }
+
+        .template-minimal .cv-section {
+            margin-bottom: 40px;
+        }
+
+        .template-minimal .cv-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .template-minimal .cv-section-content {
+            font-weight: 300;
+            color: #555;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -361,6 +676,8 @@
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    
     <div class="container">
         <div class="header">
             <h1>Professional CV Builder</h1>
@@ -375,6 +692,8 @@
                         <button class="template-btn active" data-template="classic">Classic</button>
                         <button class="template-btn" data-template="modern">Modern</button>
                         <button class="template-btn" data-template="creative">Creative</button>
+                        <button class="template-btn" data-template="professional">Professional</button>
+                        <button class="template-btn" data-template="minimal">Minimal</button>
                     </div>
                 </div>
 
@@ -385,13 +704,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="your.email@example.com">
+                        <label for="contact">Contact Information</label>
+                        <textarea id="contact" placeholder="Email: your.email@example.com&#10;Phone: +1 (555) 123-4567&#10;LinkedIn: linkedin.com/in/yourname&#10;Website: yourwebsite.com" style="min-height: 80px;"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                        <label for="headline">Professional Headline</label>
+                        <input type="text" id="headline" placeholder="Senior Software Developer | Full-Stack Engineer | Tech Enthusiast">
                     </div>
 
                     <div class="form-group">
@@ -415,9 +734,40 @@
                         <textarea id="experience" placeholder="Software Developer | Tech Company (2022-Present)&#10;• Developed web applications using React and Node.js&#10;• Collaborated with cross-functional teams"></textarea>
                     </div>
 
-                    <button type="button" class="download-btn" onclick="downloadPDF()">
-                        📄 Download CV as PDF
-                    </button>
+                    <div class="payment-section">
+                        <div class="price-info">
+                            <h4 style="color: #2c3e50; margin-bottom: 10px;">💳 Generate Professional CV - $1.00</h4>
+                            <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">One-time payment • Instant download • Professional quality</p>
+                        </div>
+                        
+                        <div id="paymentForm" style="margin-bottom: 20px;">
+                            <div class="form-group" style="margin-bottom: 15px;">
+                                <label style="font-size: 0.9rem;">Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" style="padding: 10px;">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <label style="font-size: 0.9rem;">Expiry</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" style="padding: 10px;">
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 0.9rem;">CVV</label>
+                                    <input type="text" id="cardCvv" placeholder="123" maxlength="3" style="padding: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="download-btn" onclick="processPayment()" id="payBtn">
+                            💳 Pay $1.00 & Download CV
+                        </button>
+                        
+                        <div id="paymentSuccess" style="display: none; text-align: center; margin-top: 15px;">
+                            <p style="color: #27ae60; font-weight: 600; margin-bottom: 10px;">✅ Payment Successful!</p>
+                            <button type="button" class="download-btn" onclick="downloadPDF()" style="background: #27ae60;">
+                                📄 Download Your CV Now
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -428,9 +778,9 @@
                         <div class="cv-header">
                             <img id="previewPhoto" class="cv-photo" style="display: none;">
                             <div class="cv-name" id="previewName">Your Name</div>
+                            <div style="font-style: italic; margin-bottom: 10px; color: #666;" id="previewHeadline">Professional Headline</div>
                             <div class="cv-contact" id="previewContact">
-                                <span id="previewEmail">your.email@example.com</span> | 
-                                <span id="previewPhone">+1 (555) 123-4567</span>
+                                Email: your.email@example.com<br>Phone: +1 (555) 123-4567<br>LinkedIn: linkedin.com/in/yourname
                             </div>
                         </div>
 
@@ -452,6 +802,62 @@
                 </div>
             </div>
         </div>
+        
+        <div style="background: #2c3e50; color: white; padding: 30px; text-align: center; margin-top: 40px;">
+            <h3 style="margin-bottom: 20px; color: #ecf0f1;">Important Information</h3>
+            
+            <div style="max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.6;">
+                <h4 style="color: #3498db; margin-bottom: 10px;">🔒 Privacy & Data Protection</h4>
+                <p style="margin-bottom: 15px; font-size: 0.95rem;">
+                    • Your personal information is processed securely and never shared with third parties<br>
+                    • All uploaded photos and data are automatically deleted after PDF generation<br>
+                    • We use industry-standard encryption for all payment transactions
+                </p>
+                
+                <h4 style="color: #3498db; margin-bottom: 10px;">💳 Payment Policy</h4>
+                <p style="margin-bottom: 15px; font-size: 0.95rem;">
+                    • One-time payment of $1.00 allows generation of ONE CV only<br>
+                    • Please ensure all information is correct before payment<br>
+                    • No refunds after successful PDF generation<br>
+                    • Payment is processed securely through encrypted channels
+                </p>
+                
+                <h4 style="color: #3498db; margin-bottom: 10px;">⚠️ Important Notice</h4>
+                <p style="margin-bottom: 20px; font-size: 0.95rem;">
+                    Please double-check all your information before making payment. Each $1.00 payment allows you to generate only ONE CV. 
+                    Make sure your details are complete and accurate as you cannot generate another CV with the same payment.
+                </p>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(52, 152, 219, 0.1); border-radius: 10px;">
+                    <h4 style="color: #3498db; margin-bottom: 10px;">📧 Need Help?</h4>
+                    <p style="margin-bottom: 10px;">For any issues, questions, or technical support:</p>
+                    <a href="mailto:tonyazer86@gmail.com" style="color: #3498db; font-weight: 600; text-decoration: none; font-size: 1.1rem;">
+                        tonyazer86@gmail.com
+                    </a>
+                    <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                        We typically respond within 24 hours
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" onclick="toggleChatbot()">💬</button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                CV Assistant
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot">
+                    Hi! I'm here to help you with your CV. Ask me anything about resume writing, templates, or general questions!
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your message..." onkeypress="handleChatbotEnter(event)">
+                <button class="chatbot-send" onclick="sendChatbotMessage()">➤</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -460,8 +866,8 @@
         // Form inputs
         const inputs = {
             fullName: document.getElementById('fullName'),
-            email: document.getElementById('email'),
-            phone: document.getElementById('phone'),
+            contact: document.getElementById('contact'),
+            headline: document.getElementById('headline'),
             education: document.getElementById('education'),
             skills: document.getElementById('skills'),
             experience: document.getElementById('experience'),
@@ -471,9 +877,8 @@
         // Preview elements
         const preview = {
             name: document.getElementById('previewName'),
-            email: document.getElementById('previewEmail'),
-            phone: document.getElementById('previewPhone'),
             contact: document.getElementById('previewContact'),
+            headline: document.getElementById('previewHeadline'),
             education: document.getElementById('previewEducation'),
             skills: document.getElementById('previewSkills'),
             experience: document.getElementById('previewExperience')
@@ -504,6 +909,68 @@
         });
 
         let photoDataUrl = '';
+        let paymentCompleted = false;
+
+        // Format card number input
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry input
+        document.getElementById('cardExpiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+            e.target.value = value;
+        });
+
+        // Format CVV input
+        document.getElementById('cardCvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        function processPayment() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCvv = document.getElementById('cardCvv').value;
+            
+            // Basic validation
+            if (!cardNumber || cardNumber.replace(/\s/g, '').length < 16) {
+                alert('Please enter a valid card number');
+                return;
+            }
+            
+            if (!cardExpiry || cardExpiry.length < 5) {
+                alert('Please enter a valid expiry date');
+                return;
+            }
+            
+            if (!cardCvv || cardCvv.length < 3) {
+                alert('Please enter a valid CVV');
+                return;
+            }
+            
+            const payBtn = document.getElementById('payBtn');
+            const originalText = payBtn.textContent;
+            payBtn.textContent = '💳 Processing Payment...';
+            payBtn.disabled = true;
+            
+            // Simulate payment processing (replace with real payment gateway)
+            setTimeout(() => {
+                // TODO: Replace with actual payment processing
+                // This is temporary - integrate with real payment system later
+                paymentCompleted = true;
+                
+                document.getElementById('paymentForm').style.display = 'none';
+                payBtn.style.display = 'none';
+                document.getElementById('paymentSuccess').style.display = 'block';
+                
+                alert('Payment successful! You can now download your CV.');
+            }, 2000);
+        }
 
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
@@ -524,15 +991,15 @@
 
         function updatePreview() {
             const name = inputs.fullName.value || 'Your Name';
-            const email = inputs.email.value || 'your.email@example.com';
-            const phone = inputs.phone.value || '+1 (555) 123-4567';
+            const contact = inputs.contact.value || 'Email: your.email@example.com\nPhone: +1 (555) 123-4567\nLinkedIn: linkedin.com/in/yourname';
+            const headline = inputs.headline.value || 'Professional Headline';
             const education = inputs.education.value || 'Your education details will appear here';
             const skills = inputs.skills.value || 'Your skills will appear here';
             const experience = inputs.experience.value || 'Your work experience will appear here';
 
             preview.name.textContent = name;
-            preview.email.textContent = email;
-            preview.phone.textContent = phone;
+            preview.contact.innerHTML = contact.replace(/\n/g, '<br>');
+            if (preview.headline) preview.headline.textContent = headline;
             preview.education.innerHTML = education.replace(/\n/g, '<br>');
             preview.skills.innerHTML = skills.replace(/\n/g, '<br>');
             preview.experience.innerHTML = experience.replace(/\n/g, '<br>');
@@ -552,7 +1019,57 @@
         function updateTemplate() {
             cvContent.className = `template-${currentTemplate}`;
             
-            if (currentTemplate === 'modern') {
+            if (currentTemplate === 'professional') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                        <div class="cv-header-text">
+                            <div class="cv-name" id="previewName">Your Name</div>
+                            <div class="cv-contact" id="previewContact">
+                                <span id="previewEmail">your.email@example.com</span> | 
+                                <span id="previewPhone">+1 (555) 123-4567</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cv-body">
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'minimal') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div class="cv-contact" id="previewContact">
+                            <span id="previewEmail">your.email@example.com</span> | 
+                            <span id="previewPhone">+1 (555) 123-4567</span>
+                        </div>
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Education</div>
+                        <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Skills</div>
+                        <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Experience</div>
+                        <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'modern') {
                 cvContent.innerHTML = `
                     <div class="cv-sidebar">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
@@ -607,9 +1124,9 @@
                     <div class="cv-header">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
                         <div class="cv-name" id="previewName">Your Name</div>
+                        <div style="font-style: italic; margin-bottom: 10px; color: #666;" id="previewHeadline">Professional Headline</div>
                         <div class="cv-contact" id="previewContact">
-                            <span id="previewEmail">your.email@example.com</span> | 
-                            <span id="previewPhone">+1 (555) 123-4567</span>
+                            Email: your.email@example.com<br>Phone: +1 (555) 123-4567<br>LinkedIn: linkedin.com/in/yourname
                         </div>
                     </div>
                     <div class="cv-section">
@@ -638,43 +1155,51 @@
         }
 
         function downloadPDF() {
-            const element = document.getElementById('cvContent');
+            if (!paymentCompleted) {
+                alert('Please complete payment first to download your CV.');
+                return;
+            }
+            
+            const element = document.getElementById('cvPreview');
             const name = inputs.fullName.value || 'CV';
             
-            // Show loading message
             const downloadBtn = document.querySelector('.download-btn');
             const originalText = downloadBtn.textContent;
             downloadBtn.textContent = '📄 Generating PDF...';
             downloadBtn.disabled = true;
 
-            // Wait a moment for any dynamic content to render
-            setTimeout(() => {
-                const opt = {
-                    margin: [0.5, 0.5, 0.5, 0.5],
-                    filename: `${name.replace(/\s+/g, '_')}_CV.pdf`,
-                    image: { 
-                        type: 'jpeg', 
-                        quality: 0.98 
-                    },
-                    html2canvas: { 
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: true,
-                        backgroundColor: '#ffffff',
-                        logging: false,
-                        height: element.scrollHeight,
-                        width: element.scrollWidth,
-                        scrollX: 0,
-                        scrollY: 0
-                    },
-                    jsPDF: { 
-                        unit: 'in', 
-                        format: 'a4', 
-                        orientation: 'portrait'
-                    },
-                    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-                };
+            // Ensure photo is properly set before PDF generation
+            const photoElement = document.getElementById('previewPhoto');
+            if (photoElement && photoDataUrl) {
+                photoElement.src = photoDataUrl;
+                photoElement.style.display = 'block';
+                photoElement.crossOrigin = 'anonymous';
+            }
 
+            const opt = {
+                margin: 0.5,
+                filename: `${name.replace(/\s+/g, '_')}_CV.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    onclone: function(clonedDoc) {
+                        // Ensure photo is set in cloned document
+                        const clonedPhoto = clonedDoc.querySelector('#previewPhoto');
+                        if (clonedPhoto && photoDataUrl) {
+                            clonedPhoto.src = photoDataUrl;
+                            clonedPhoto.style.display = 'block';
+                            clonedPhoto.crossOrigin = 'anonymous';
+                        }
+                    }
+                },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Wait a moment for image to load, then generate PDF
+            setTimeout(() => {
                 html2pdf().set(opt).from(element).save().then(() => {
                     downloadBtn.textContent = originalText;
                     downloadBtn.disabled = false;
@@ -684,11 +1209,137 @@
                     downloadBtn.disabled = false;
                     alert('PDF generation failed. Please try again.');
                 });
-            }, 100);
+            }, 500);
         }
 
-        // Initialize preview
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        // Chatbot functionality
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleChatbotEnter(event) {
+            if (event.key === 'Enter') {
+                sendChatbotMessage();
+            }
+        }
+
+        function sendChatbotMessage() {
+            const input = document.getElementById('chatbotInput');
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chatbot-message user';
+            userMessage.textContent = message;
+            messagesContainer.appendChild(userMessage);
+            
+            // Clear input
+            input.value = '';
+            
+            // Generate bot response
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chatbot-message bot';
+                botMessage.innerHTML = generateBotResponse(message);
+                messagesContainer.appendChild(botMessage);
+                
+                // Scroll to bottom
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function generateBotResponse(userMessage) {
+            const msg = userMessage.toLowerCase();
+            
+            // Privacy related questions
+            if (msg.includes('privacy') || msg.includes('data') || msg.includes('secure') || msg.includes('safe')) {
+                return "🔒 Your privacy is our priority! We use industry-standard encryption, never share your data with third parties, and automatically delete all uploaded information after PDF generation. Your personal details are processed securely and stored temporarily only during the CV creation process.";
+            }
+            
+            // Payment related questions
+            if (msg.includes('payment') || msg.includes('pay') || msg.includes('cost') || msg.includes('price') || msg.includes('refund')) {
+                return "💳 Our service costs $1.00 for one CV generation. Payment is processed securely through encrypted channels. Please note: each payment allows ONE CV download only, and refunds aren't available after successful PDF generation. Make sure your information is complete before paying!";
+            }
+            
+            // Template questions
+            if (msg.includes('template') || msg.includes('design') || msg.includes('style')) {
+                return "🎨 We offer 5 professional templates: Classic (traditional), Modern (two-column), Creative (colorful gradient), Professional (corporate with photo), and Minimal (clean & simple). Each template is fully responsive and designed by professionals. You can switch between them anytime before payment!";
+            }
+            
+            // CV writing tips
+            if (msg.includes('tips') || msg.includes('help') || msg.includes('advice') || msg.includes('write') || msg.includes('resume')) {
+                return "✍️ CV Writing Tips:<br>• Keep it concise (1-2 pages max)<br>• Use action verbs (developed, managed, created)<br>• Quantify achievements with numbers<br>• Tailor skills to the job you want<br>• Include relevant keywords<br>• Proofread carefully for errors<br>• Use a professional email address";
+            }
+            
+            // Technical questions
+            if (msg.includes('download') || msg.includes('pdf') || msg.includes('format') || msg.includes('file')) {
+                return "📄 After payment, you'll get a high-quality PDF file that's perfect for printing or digital sharing. The PDF maintains all formatting and is compatible with all devices. Download happens instantly after successful payment!";
+            }
+            
+            // Photo questions
+            if (msg.includes('photo') || msg.includes('picture') || msg.includes('image')) {
+                return "📸 You can upload a professional headshot in JPG, PNG, or other common formats. The photo will be automatically resized and positioned perfectly in your chosen template. For best results, use a clear, professional photo with good lighting!";
+            }
+            
+            // Contact questions
+            if (msg.includes('contact') || msg.includes('support') || msg.includes('help') || msg.includes('problem')) {
+                return "📧 For any technical issues, questions, or support needs, please contact our developer directly at <strong>tonyazer86@gmail.com</strong>. We typically respond within 24 hours and are happy to help with any concerns!";
+            }
+            
+            // Greeting responses
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey') || msg.includes('good')) {
+                return "👋 Hello! I'm here to help you create an amazing CV. I can answer questions about our templates, payment process, privacy policy, or give you CV writing tips. What would you like to know?";
+            }
+            
+            // Thank you responses
+            if (msg.includes('thank') || msg.includes('thanks')) {
+                return "😊 You're very welcome! I'm glad I could help. If you have any other questions about creating your CV, feel free to ask anytime!";
+            }
+            
+            // Default response for unrecognized questions
+            return `🤔 I'm not sure about that specific question, but I'd be happy to help! I can assist with:<br><br>• CV writing tips and advice<br>• Template information<br>• Payment and pricing details<br>• Privacy and security questions<br>• Technical support<br><br>For anything else, please contact our developer directly at <strong>tonyazer86@gmail.com</strong> - they'll be able to give you a detailed answer within 24 hours!`;
+        }
+
+        // Initialize everything
+        loadTheme();
         updatePreview();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9698986bb13a1896',t:'MTc1NDI1MzI2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b01c1c547073c7',t:'MTc1NDQ5OTgyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
