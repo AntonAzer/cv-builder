@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVCraft Pro - Professional CV Builder</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f39c12;stop-opacity:1' /><stop offset='100%25' style='stop-color:%23e67e22;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='60' font-family='Arial,sans-serif' font-size='32' font-weight='900' fill='white' text-anchor='middle'>CV</text></svg>" type="image/svg+xml">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -1406,6 +1407,90 @@
             margin-bottom: 3px;
         }
 
+        /* LinkedIn Template */
+        .template-linkedin {
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            color: #000;
+            line-height: 1.5;
+        }
+
+        .template-linkedin .cv-header {
+            background: #0077b5;
+            color: white;
+            padding: 30px 40px;
+            position: relative;
+        }
+
+        .template-linkedin .cv-header-content {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .template-linkedin .cv-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            flex-shrink: 0;
+        }
+
+        .template-linkedin .cv-header-text {
+            flex: 1;
+        }
+
+        .template-linkedin .cv-name {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .template-linkedin .cv-headline {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #e1f5fe;
+            font-weight: 400;
+        }
+
+        .template-linkedin .cv-contact {
+            font-size: 0.95rem;
+            color: #e1f5fe;
+            line-height: 1.4;
+        }
+
+        .template-linkedin .cv-body {
+            padding: 40px;
+        }
+
+        .template-linkedin .cv-section {
+            margin-bottom: 35px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 25px;
+        }
+
+        .template-linkedin .cv-section:last-child {
+            border-bottom: none;
+        }
+
+        .template-linkedin .cv-section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0077b5;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .template-linkedin .cv-section-content {
+            color: #333;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -1582,8 +1667,8 @@
                     <div style="background: linear-gradient(135deg, #3498db, #2980b9); width: 70px; height: 70px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
                         <i class="fas fa-palette" style="font-size: 2rem; color: white;"></i>
                     </div>
-                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">8 Professional Templates</h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Choose from 8 expertly designed templates including ATS-optimized formats. Each template is crafted by professional designers to help you stand out and get past applicant tracking systems.</p>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem;">9 Professional Templates</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Choose from 9 expertly designed templates including ATS-optimized formats. Each template is crafted by professional designers to help you stand out and get past applicant tracking systems.</p>
                     <ul style="color: #666; line-height: 1.8; list-style: none; padding: 0;">
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Classic - Traditional and timeless</li>
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Modern - Two-column layout</li>
@@ -1592,6 +1677,7 @@
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Premium - Sophisticated and elegant</li>
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Executive - Premium luxury design</li>
                         <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>Traditional - Classic and formal</li>
+                        <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>LinkedIn - Professional social style</li>
                         <li><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i>ATS Optimized - Beats tracking systems</li>
                     </ul>
                 </div>
@@ -1764,7 +1850,7 @@
                             <div style="font-size: 0.9rem; color: #666;">Days Active</div>
                         </div>
                         <div>
-                            <div style="font-size: 2rem; font-weight: 700; color: #f39c12;">8</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #f39c12;">9</div>
                             <div style="font-size: 0.9rem; color: #666;">Templates</div>
                         </div>
                     </div>
@@ -1796,6 +1882,7 @@
                         <button class="template-btn" data-template="executive">Executive</button>
                         <button class="template-btn" data-template="traditional">Traditional</button>
                         <button class="template-btn" data-template="ats">ATS Optimized</button>
+                        <button class="template-btn" data-template="linkedin">LinkedIn</button>
                     </div>
                 </div>
 
@@ -2077,6 +2164,18 @@
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
             if (file) {
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select a valid image file (JPG, PNG, GIF, etc.)');
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image file is too large. Please select an image smaller than 5MB.');
+                    return;
+                }
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     photoDataUrl = e.target.result;
@@ -2085,7 +2184,22 @@
                     const photoPreview = document.getElementById('photoPreview');
                     photoPreview.innerHTML = `<img src="${photoDataUrl}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db;">`;
                     
+                    // Immediately update the CV preview
                     updatePreview();
+                    
+                    // Ensure the photo loads in the preview
+                    const previewPhoto = document.getElementById('previewPhoto');
+                    if (previewPhoto) {
+                        previewPhoto.onload = function() {
+                            console.log('Photo loaded successfully in preview');
+                        };
+                        previewPhoto.onerror = function() {
+                            console.error('Failed to load photo in preview');
+                        };
+                    }
+                };
+                reader.onerror = function() {
+                    alert('Error reading the image file. Please try again.');
                 };
                 reader.readAsDataURL(file);
             }
@@ -2116,6 +2230,11 @@
                     photoElement.style.display = 'none';
                 }
             }
+        }
+
+        // Alias function for PDF generation compatibility
+        function updateCV() {
+            updatePreview();
         }
 
         function updateTemplate() {
@@ -2169,6 +2288,33 @@
                         <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                     </div>
                 `;
+            } else if (currentTemplate === 'elegant') {
+                cvContent.innerHTML = `
+                    <div class="cv-container">
+                        <div class="cv-header">
+                            <img id="previewPhoto" class="cv-photo" style="display: none;">
+                            <div class="cv-name" id="previewName">Your Name</div>
+                            <div class="cv-contact" id="previewContact">
+                                <span id="previewEmail">your.email@example.com</span> | 
+                                <span id="previewPhone">+1 (555) 123-4567</span>
+                            </div>
+                        </div>
+                        <div class="cv-body">
+                            <div class="cv-section">
+                                <div class="cv-section-title">Education</div>
+                                <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                            </div>
+                            <div class="cv-section">
+                                <div class="cv-section-title">Skills</div>
+                                <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                            </div>
+                            <div class="cv-section">
+                                <div class="cv-section-title">Experience</div>
+                                <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             } else if (currentTemplate === 'ats') {
                 cvContent.innerHTML = `
                     <div class="cv-header">
@@ -2189,6 +2335,36 @@
                     <div class="cv-section">
                         <div class="cv-section-title">Experience</div>
                         <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                    </div>
+                `;
+            } else if (currentTemplate === 'linkedin') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <div class="cv-header-content">
+                            <img id="previewPhoto" class="cv-photo" style="display: none;">
+                            <div class="cv-header-text">
+                                <div class="cv-name" id="previewName">Your Name</div>
+                                <div class="cv-headline" id="previewHeadline">Professional Headline</div>
+                                <div class="cv-contact" id="previewContact">
+                                    <span id="previewEmail">your.email@example.com</span> | 
+                                    <span id="previewPhone">+1 (555) 123-4567</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cv-body">
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                        </div>
                     </div>
                 `;
             } else if (currentTemplate === 'professional') {
@@ -2910,76 +3086,137 @@
             }, 2000);
         }
 
-        // Enhanced download with user tracking
-        function downloadPDF() {
+        async function downloadPDF() {
             if (!paymentCompleted) {
-                showNotification('Please complete payment first to download your CV.', 'error');
+                alert('Please complete payment first to download your CV.');
                 return;
             }
             
             const element = document.getElementById('cvPreview');
             const name = inputs.fullName.value || 'CV';
             
+            // Check if preview has content
+            if (!element || element.textContent.trim() === '' || element.innerHTML.trim() === '') {
+                alert('CV preview is empty. Please fill in your information before downloading.');
+                return;
+            }
+            
             const downloadBtn = document.querySelector('.download-btn');
             const originalText = downloadBtn.textContent;
             downloadBtn.textContent = '📄 Generating PDF...';
             downloadBtn.disabled = true;
 
-            // Ensure photo is properly set before PDF generation
-            const photoElement = document.getElementById('previewPhoto');
-            if (photoElement && photoDataUrl) {
-                photoElement.src = photoDataUrl;
-                photoElement.style.display = 'block';
-                photoElement.crossOrigin = 'anonymous';
-            }
+            try {
+                // Call updateCV function to rebuild preview
+                updateCV();
+                
+                // Wait for DOM updates
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Ensure photo is loaded if present
+                const photoElement = document.getElementById('previewPhoto');
+                if (photoElement && photoDataUrl) {
+                    photoElement.src = photoDataUrl;
+                    photoElement.style.display = 'block';
+                    
+                    // Wait for image to load
+                    if (!photoElement.complete) {
+                        await new Promise((resolve) => {
+                            photoElement.onload = resolve;
+                            photoElement.onerror = resolve;
+                            setTimeout(resolve, 2000); // Timeout after 2 seconds
+                        });
+                    }
+                }
 
-            const opt = {
-                margin: 0.5,
-                filename: `${name.replace(/\s+/g, '_')}_CV.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
+                // Wait for fonts to load
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
+
+                // Use html2canvas directly for better control
+                const canvas = await html2canvas(element, {
                     scale: 2,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
+                    logging: false,
+                    letterRendering: true,
+                    width: element.scrollWidth,
+                    height: element.scrollHeight,
                     onclone: function(clonedDoc) {
+                        // Ensure photo is properly set in cloned document
                         const clonedPhoto = clonedDoc.querySelector('#previewPhoto');
                         if (clonedPhoto && photoDataUrl) {
                             clonedPhoto.src = photoDataUrl;
                             clonedPhoto.style.display = 'block';
-                            clonedPhoto.crossOrigin = 'anonymous';
                         }
                     }
-                },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-
-            setTimeout(() => {
-                html2pdf().set(opt).from(element).save().then(() => {
-                    downloadBtn.textContent = originalText;
-                    downloadBtn.disabled = false;
-                    
-                    // Add CV to user history if logged in
-                    if (currentUser) {
-                        const user = userDatabase[currentUser.email];
-                        if (!user.cvHistory) user.cvHistory = [];
-                        user.cvHistory.push({
-                            id: 'cv_' + Date.now(),
-                            name: name + ' CV',
-                            template: currentTemplate,
-                            createdAt: Date.now()
-                        });
-                        localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
-                    }
-                    
-                    showNotification('CV downloaded successfully!', 'success');
-                }).catch((error) => {
-                    console.error('PDF generation failed:', error);
-                    downloadBtn.textContent = originalText;
-                    downloadBtn.disabled = false;
-                    showNotification('PDF generation failed. Please try again.', 'error');
                 });
-            }, 500);
+
+                // Create PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 297; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+
+                let position = 0;
+
+                // Add first page
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                // Add additional pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                // Save the PDF
+                pdf.save(`${name.replace(/\s+/g, '_')}_CV.pdf`);
+                
+                downloadBtn.textContent = originalText;
+                downloadBtn.disabled = false;
+                
+                // Add CV to user history if logged in
+                if (currentUser) {
+                    const user = userDatabase[currentUser.email];
+                    if (!user.cvHistory) user.cvHistory = [];
+                    user.cvHistory.push({
+                        id: 'cv_' + Date.now(),
+                        name: name + ' CV',
+                        template: currentTemplate,
+                        createdAt: Date.now()
+                    });
+                    localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
+                }
+                
+                showNotification('CV downloaded successfully!', 'success');
+                
+            } catch (error) {
+                console.error('PDF generation failed:', error);
+                downloadBtn.textContent = originalText;
+                downloadBtn.disabled = false;
+                
+                // More specific error messages
+                if (error.message.includes('html2canvas')) {
+                    alert('Failed to capture CV content. Please try refreshing the page and try again.');
+                } else if (error.message.includes('jsPDF')) {
+                    alert('Failed to create PDF file. Please check your browser compatibility.');
+                } else {
+                    alert('PDF generation failed. Please ensure all fields are filled and try again.');
+                }
+            }
         }
 
         // Social Login Functions
@@ -3012,5 +3249,5 @@
         updatePreview();
         checkAuthStatus();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b1df23031a2b24',t:'MTc1NDUxODMwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c890cc92f5e1c4',t:'MTc1NDc1NjI2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
