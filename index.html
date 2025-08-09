@@ -822,7 +822,7 @@
 
         /* Classic Template */
         .template-classic {
-            padding: 40px;
+            padding: 20px;
             font-family: 'Times New Roman', serif;
             line-height: 1.6;
             color: #333;
@@ -884,11 +884,11 @@
         .template-modern .cv-sidebar {
             background: #2c3e50;
             color: white;
-            padding: 40px 30px;
+            padding: 20px 15px;
         }
 
         .template-modern .cv-main {
-            padding: 40px;
+            padding: 20px;
             background: white;
         }
 
@@ -951,7 +951,7 @@
         }
 
         .template-creative .cv-content {
-            padding: 40px;
+            padding: 20px;
             position: relative;
             z-index: 1;
         }
@@ -1013,10 +1013,10 @@
         .template-professional .cv-header {
             background: #2c3e50;
             color: white;
-            padding: 40px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
         }
 
         .template-professional .cv-photo {
@@ -1045,13 +1045,13 @@
         }
 
         .template-professional .cv-body {
-            padding: 40px;
+            padding: 20px;
         }
 
         .template-professional .cv-section {
-            margin-bottom: 35px;
+            margin-bottom: 20px;
             background: white;
-            padding: 25px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -1102,10 +1102,10 @@
         .template-premium .cv-header {
             background: linear-gradient(135deg, #2c3e50, #34495e);
             color: white;
-            padding: 50px 40px;
+            padding: 25px 20px;
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
 
         .template-premium .cv-header::before {
@@ -1149,18 +1149,18 @@
         }
 
         .template-premium .cv-body {
-            padding: 0 40px 40px;
+            padding: 0 20px 20px;
             position: relative;
             z-index: 1;
         }
 
         .template-premium .cv-section {
             background: white;
-            margin-bottom: 25px;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-left: 5px solid #3498db;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 3px solid #3498db;
             position: relative;
             overflow: hidden;
         }
@@ -1215,7 +1215,7 @@
         .template-executive .cv-header {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: white;
-            padding: 50px 40px;
+            padding: 25px 20px;
             text-align: center;
             position: relative;
         }
@@ -1258,16 +1258,16 @@
         }
 
         .template-executive .cv-body {
-            padding: 60px 40px 40px;
+            padding: 30px 20px 20px;
         }
 
         .template-executive .cv-section {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-left: 3px solid #667eea;
         }
 
         .template-executive .cv-section-title {
@@ -1281,7 +1281,7 @@
 
         /* Traditional Template */
         .template-traditional {
-            padding: 40px;
+            padding: 20px;
             font-family: 'Georgia', serif;
             background: white;
             color: #2c3e50;
@@ -1419,7 +1419,7 @@
         .template-linkedin .cv-header {
             background: #0077b5;
             color: white;
-            padding: 30px 40px;
+            padding: 20px;
             position: relative;
         }
 
@@ -1463,7 +1463,7 @@
         }
 
         .template-linkedin .cv-body {
-            padding: 40px;
+            padding: 20px;
         }
 
         .template-linkedin .cv-section {
@@ -1923,6 +1923,21 @@
                         <textarea id="experience" placeholder="Software Developer | Tech Company (2022-Present)&#10;• Developed web applications using React and Node.js&#10;• Collaborated with cross-functional teams"></textarea>
                     </div>
 
+                    <div class="form-group">
+                        <label for="languages">Languages (Optional)</label>
+                        <textarea id="languages" placeholder="English - Native&#10;Spanish - Fluent&#10;French - Intermediate"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certificates">Certificates & Awards (Optional)</label>
+                        <textarea id="certificates" placeholder="AWS Certified Solutions Architect (2023)&#10;Google Analytics Certified (2022)&#10;Best Employee Award - Tech Corp (2021)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hobbies">Hobbies & Interests (Optional)</label>
+                        <textarea id="hobbies" placeholder="Photography, Hiking, Reading&#10;Volunteer work at local animal shelter&#10;Playing guitar and composing music"></textarea>
+                    </div>
+
                     <div class="payment-section">
                         <div class="price-info">
                             <h4 style="color: #2c3e50; margin-bottom: 10px;">💳 Generate Professional CV - $1.00</h4>
@@ -1986,6 +2001,21 @@
                         <div class="cv-section">
                             <div class="cv-section-title">Experience</div>
                             <div id="previewExperience">Your work experience will appear here</div>
+                        </div>
+
+                        <div class="cv-section" id="languagesSection" style="display: none;">
+                            <div class="cv-section-title">Languages</div>
+                            <div id="previewLanguages"></div>
+                        </div>
+
+                        <div class="cv-section" id="certificatesSection" style="display: none;">
+                            <div class="cv-section-title">Certificates & Awards</div>
+                            <div id="previewCertificates"></div>
+                        </div>
+
+                        <div class="cv-section" id="hobbiesSection" style="display: none;">
+                            <div class="cv-section-title">Hobbies & Interests</div>
+                            <div id="previewHobbies"></div>
                         </div>
                     </div>
                 </div>
@@ -2060,6 +2090,9 @@
             education: document.getElementById('education'),
             skills: document.getElementById('skills'),
             experience: document.getElementById('experience'),
+            languages: document.getElementById('languages'),
+            certificates: document.getElementById('certificates'),
+            hobbies: document.getElementById('hobbies'),
             photo: document.getElementById('photo')
         };
 
@@ -2070,7 +2103,10 @@
             headline: document.getElementById('previewHeadline'),
             education: document.getElementById('previewEducation'),
             skills: document.getElementById('previewSkills'),
-            experience: document.getElementById('previewExperience')
+            experience: document.getElementById('previewExperience'),
+            languages: document.getElementById('previewLanguages'),
+            certificates: document.getElementById('previewCertificates'),
+            hobbies: document.getElementById('previewHobbies')
         };
 
         // Template buttons
@@ -2212,23 +2248,54 @@
             const education = inputs.education.value || 'Your education details will appear here';
             const skills = inputs.skills.value || 'Your skills will appear here';
             const experience = inputs.experience.value || 'Your work experience will appear here';
+            const languages = inputs.languages.value;
+            const certificates = inputs.certificates.value;
+            const hobbies = inputs.hobbies.value;
 
-            preview.name.textContent = name;
-            preview.contact.innerHTML = contact.replace(/\n/g, '<br>');
+            // Update main content
+            if (preview.name) preview.name.textContent = name;
+            if (preview.contact) preview.contact.innerHTML = contact.replace(/\n/g, '<br>');
             if (preview.headline) preview.headline.textContent = headline;
-            preview.education.innerHTML = education.replace(/\n/g, '<br>');
-            preview.skills.innerHTML = skills.replace(/\n/g, '<br>');
-            preview.experience.innerHTML = experience.replace(/\n/g, '<br>');
+            if (preview.education) preview.education.innerHTML = education.replace(/\n/g, '<br>');
+            if (preview.skills) preview.skills.innerHTML = skills.replace(/\n/g, '<br>');
+            if (preview.experience) preview.experience.innerHTML = experience.replace(/\n/g, '<br>');
 
-            // Update photo
+            // Handle optional sections - show only if filled
+            const languagesSection = document.getElementById('languagesSection');
+            const certificatesSection = document.getElementById('certificatesSection');
+            const hobbiesSection = document.getElementById('hobbiesSection');
+
+            if (languages && languages.trim()) {
+                if (preview.languages) preview.languages.innerHTML = languages.replace(/\n/g, '<br>');
+                if (languagesSection) languagesSection.style.display = 'block';
+            } else {
+                if (languagesSection) languagesSection.style.display = 'none';
+            }
+
+            if (certificates && certificates.trim()) {
+                if (preview.certificates) preview.certificates.innerHTML = certificates.replace(/\n/g, '<br>');
+                if (certificatesSection) certificatesSection.style.display = 'block';
+            } else {
+                if (certificatesSection) certificatesSection.style.display = 'none';
+            }
+
+            if (hobbies && hobbies.trim()) {
+                if (preview.hobbies) preview.hobbies.innerHTML = hobbies.replace(/\n/g, '<br>');
+                if (hobbiesSection) hobbiesSection.style.display = 'block';
+            } else {
+                if (hobbiesSection) hobbiesSection.style.display = 'none';
+            }
+
+            // Update photo - ensure it displays properly
             const photoElement = document.getElementById('previewPhoto');
-            if (photoElement) {
-                if (photoDataUrl) {
-                    photoElement.src = photoDataUrl;
-                    photoElement.style.display = 'block';
-                } else {
-                    photoElement.style.display = 'none';
-                }
+            if (photoElement && photoDataUrl) {
+                photoElement.src = photoDataUrl;
+                photoElement.style.display = 'block';
+                photoElement.onload = function() {
+                    console.log('Photo loaded in preview');
+                };
+            } else if (photoElement) {
+                photoElement.style.display = 'none';
             }
         }
 
@@ -2240,29 +2307,48 @@
         function updateTemplate() {
             cvContent.className = `template-${currentTemplate}`;
             
+            // Standard template structure with ALL fields for ALL templates
+            const standardFields = `
+                <div class="cv-section" id="languagesSection" style="display: none;">
+                    <div class="cv-section-title">Languages</div>
+                    <div class="cv-section-content" id="previewLanguages"></div>
+                </div>
+
+                <div class="cv-section" id="certificatesSection" style="display: none;">
+                    <div class="cv-section-title">Certificates & Awards</div>
+                    <div class="cv-section-content" id="previewCertificates"></div>
+                </div>
+
+                <div class="cv-section" id="hobbiesSection" style="display: none;">
+                    <div class="cv-section-title">Hobbies & Interests</div>
+                    <div class="cv-section-content" id="previewHobbies"></div>
+                </div>
+            `;
+            
             if (currentTemplate === 'executive') {
                 cvContent.innerHTML = `
                     <div class="cv-header">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
                         <div class="cv-name" id="previewName">Your Name</div>
+                        <div style="font-style: italic; margin-bottom: 10px; color: rgba(255,255,255,0.8);" id="previewHeadline">Professional Headline</div>
                         <div class="cv-contact" id="previewContact">
-                            <span id="previewEmail">your.email@example.com</span> | 
-                            <span id="previewPhone">+1 (555) 123-4567</span>
+                            your.email@example.com | +1 (555) 123-4567
                         </div>
                     </div>
                     <div class="cv-body">
                         <div class="cv-section">
                             <div class="cv-section-title">Education</div>
-                            <div id="previewEducation">Your education details will appear here</div>
+                            <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Skills</div>
-                            <div id="previewSkills">Your skills will appear here</div>
+                            <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Experience</div>
-                            <div id="previewExperience">Your work experience will appear here</div>
+                            <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                         </div>
+                        ${standardFields}
                     </div>
                 `;
             } else if (currentTemplate === 'traditional') {
@@ -2270,9 +2356,9 @@
                     <div class="cv-header">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
                         <div class="cv-name" id="previewName">Your Name</div>
+                        <div style="font-style: italic; margin-bottom: 10px; color: #666;" id="previewHeadline">Professional Headline</div>
                         <div class="cv-contact" id="previewContact">
-                            <span id="previewEmail">your.email@example.com</span> | 
-                            <span id="previewPhone">+1 (555) 123-4567</span>
+                            your.email@example.com | +1 (555) 123-4567
                         </div>
                     </div>
                     <div class="cv-section">
@@ -2287,41 +2373,15 @@
                         <div class="cv-section-title">Experience</div>
                         <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                     </div>
-                `;
-            } else if (currentTemplate === 'elegant') {
-                cvContent.innerHTML = `
-                    <div class="cv-container">
-                        <div class="cv-header">
-                            <img id="previewPhoto" class="cv-photo" style="display: none;">
-                            <div class="cv-name" id="previewName">Your Name</div>
-                            <div class="cv-contact" id="previewContact">
-                                <span id="previewEmail">your.email@example.com</span> | 
-                                <span id="previewPhone">+1 (555) 123-4567</span>
-                            </div>
-                        </div>
-                        <div class="cv-body">
-                            <div class="cv-section">
-                                <div class="cv-section-title">Education</div>
-                                <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
-                            </div>
-                            <div class="cv-section">
-                                <div class="cv-section-title">Skills</div>
-                                <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
-                            </div>
-                            <div class="cv-section">
-                                <div class="cv-section-title">Experience</div>
-                                <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
-                            </div>
-                        </div>
-                    </div>
+                    ${standardFields}
                 `;
             } else if (currentTemplate === 'ats') {
                 cvContent.innerHTML = `
                     <div class="cv-header">
                         <div class="cv-name" id="previewName">Your Name</div>
+                        <div style="font-style: italic; margin-bottom: 8px; color: #333;" id="previewHeadline">Professional Headline</div>
                         <div class="cv-contact" id="previewContact">
-                            <span id="previewEmail">your.email@example.com</span> | 
-                            <span id="previewPhone">+1 (555) 123-4567</span>
+                            your.email@example.com | +1 (555) 123-4567
                         </div>
                     </div>
                     <div class="cv-section">
@@ -2336,6 +2396,7 @@
                         <div class="cv-section-title">Experience</div>
                         <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                     </div>
+                    ${standardFields}
                 `;
             } else if (currentTemplate === 'linkedin') {
                 cvContent.innerHTML = `
@@ -2346,8 +2407,7 @@
                                 <div class="cv-name" id="previewName">Your Name</div>
                                 <div class="cv-headline" id="previewHeadline">Professional Headline</div>
                                 <div class="cv-contact" id="previewContact">
-                                    <span id="previewEmail">your.email@example.com</span> | 
-                                    <span id="previewPhone">+1 (555) 123-4567</span>
+                                    your.email@example.com | +1 (555) 123-4567
                                 </div>
                             </div>
                         </div>
@@ -2365,6 +2425,7 @@
                             <div class="cv-section-title">Experience</div>
                             <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                         </div>
+                        ${standardFields}
                     </div>
                 `;
             } else if (currentTemplate === 'professional') {
@@ -2373,35 +2434,10 @@
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
                         <div class="cv-header-text">
                             <div class="cv-name" id="previewName">Your Name</div>
+                            <div style="font-style: italic; margin-bottom: 10px; color: rgba(255,255,255,0.8);" id="previewHeadline">Professional Headline</div>
                             <div class="cv-contact" id="previewContact">
-                                <span id="previewEmail">your.email@example.com</span> | 
-                                <span id="previewPhone">+1 (555) 123-4567</span>
+                                your.email@example.com | +1 (555) 123-4567
                             </div>
-                        </div>
-                    </div>
-                    <div class="cv-body">
-                        <div class="cv-section">
-                            <div class="cv-section-title">Education</div>
-                            <div id="previewEducation">Your education details will appear here</div>
-                        </div>
-                        <div class="cv-section">
-                            <div class="cv-section-title">Skills</div>
-                            <div id="previewSkills">Your skills will appear here</div>
-                        </div>
-                        <div class="cv-section">
-                            <div class="cv-section-title">Experience</div>
-                            <div id="previewExperience">Your work experience will appear here</div>
-                        </div>
-                    </div>
-                `;
-            } else if (currentTemplate === 'premium') {
-                cvContent.innerHTML = `
-                    <div class="cv-header">
-                        <img id="previewPhoto" class="cv-photo" style="display: none;">
-                        <div class="cv-name" id="previewName">Your Name</div>
-                        <div class="cv-contact" id="previewContact">
-                            <span id="previewEmail">your.email@example.com</span> | 
-                            <span id="previewPhone">+1 (555) 123-4567</span>
                         </div>
                     </div>
                     <div class="cv-body">
@@ -2417,6 +2453,33 @@
                             <div class="cv-section-title">Experience</div>
                             <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                         </div>
+                        ${standardFields}
+                    </div>
+                `;
+            } else if (currentTemplate === 'premium') {
+                cvContent.innerHTML = `
+                    <div class="cv-header">
+                        <img id="previewPhoto" class="cv-photo" style="display: none;">
+                        <div class="cv-name" id="previewName">Your Name</div>
+                        <div style="font-style: italic; margin-bottom: 10px; color: rgba(255,255,255,0.8);" id="previewHeadline">Professional Headline</div>
+                        <div class="cv-contact" id="previewContact">
+                            your.email@example.com | +1 (555) 123-4567
+                        </div>
+                    </div>
+                    <div class="cv-body">
+                        <div class="cv-section">
+                            <div class="cv-section-title">Education</div>
+                            <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Skills</div>
+                            <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section">
+                            <div class="cv-section-title">Experience</div>
+                            <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                        ${standardFields}
                     </div>
                 `;
             } else if (currentTemplate === 'modern') {
@@ -2424,23 +2487,36 @@
                     <div class="cv-sidebar">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
                         <div class="cv-name" id="previewName">Your Name</div>
+                        <div style="font-style: italic; margin-bottom: 15px; color: rgba(255,255,255,0.8); font-size: 0.9rem;" id="previewHeadline">Professional Headline</div>
                         <div class="cv-contact" id="previewContact">
-                            <div id="previewEmail">your.email@example.com</div>
-                            <div id="previewPhone">+1 (555) 123-4567</div>
+                            <div>your.email@example.com</div>
+                            <div>+1 (555) 123-4567</div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Skills</div>
-                            <div id="previewSkills">Your skills will appear here</div>
+                            <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
+                        </div>
+                        <div class="cv-section" id="languagesSection" style="display: none;">
+                            <div class="cv-section-title">Languages</div>
+                            <div class="cv-section-content" id="previewLanguages"></div>
                         </div>
                     </div>
                     <div class="cv-main">
                         <div class="cv-section">
                             <div class="cv-section-title">Education</div>
-                            <div id="previewEducation">Your education details will appear here</div>
+                            <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Experience</div>
-                            <div id="previewExperience">Your work experience will appear here</div>
+                            <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
+                        </div>
+                        <div class="cv-section" id="certificatesSection" style="display: none;">
+                            <div class="cv-section-title">Certificates & Awards</div>
+                            <div class="cv-section-content" id="previewCertificates"></div>
+                        </div>
+                        <div class="cv-section" id="hobbiesSection" style="display: none;">
+                            <div class="cv-section-title">Hobbies & Interests</div>
+                            <div class="cv-section-content" id="previewHobbies"></div>
                         </div>
                     </div>
                 `;
@@ -2450,26 +2526,28 @@
                         <div class="cv-header">
                             <img id="previewPhoto" class="cv-photo" style="display: none;">
                             <div class="cv-name" id="previewName">Your Name</div>
+                            <div style="font-style: italic; margin-bottom: 10px; color: rgba(255,255,255,0.9);" id="previewHeadline">Professional Headline</div>
                             <div class="cv-contact" id="previewContact">
-                                <span id="previewEmail">your.email@example.com</span> | 
-                                <span id="previewPhone">+1 (555) 123-4567</span>
+                                your.email@example.com | +1 (555) 123-4567
                             </div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Education</div>
-                            <div id="previewEducation">Your education details will appear here</div>
+                            <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Skills</div>
-                            <div id="previewSkills">Your skills will appear here</div>
+                            <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
                         </div>
                         <div class="cv-section">
                             <div class="cv-section-title">Experience</div>
-                            <div id="previewExperience">Your work experience will appear here</div>
+                            <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                         </div>
+                        ${standardFields}
                     </div>
                 `;
             } else {
+                // Classic template
                 cvContent.innerHTML = `
                     <div class="cv-header">
                         <img id="previewPhoto" class="cv-photo" style="display: none;">
@@ -2481,16 +2559,17 @@
                     </div>
                     <div class="cv-section">
                         <div class="cv-section-title">Education</div>
-                        <div id="previewEducation">Your education details will appear here</div>
+                        <div class="cv-section-content" id="previewEducation">Your education details will appear here</div>
                     </div>
                     <div class="cv-section">
                         <div class="cv-section-title">Skills</div>
-                        <div id="previewSkills">Your skills will appear here</div>
+                        <div class="cv-section-content" id="previewSkills">Your skills will appear here</div>
                     </div>
                     <div class="cv-section">
                         <div class="cv-section-title">Experience</div>
-                        <div id="previewExperience">Your work experience will appear here</div>
+                        <div class="cv-section-content" id="previewExperience">Your work experience will appear here</div>
                     </div>
+                    ${standardFields}
                 `;
             }
 
@@ -2499,9 +2578,13 @@
             preview.email = document.getElementById('previewEmail');
             preview.phone = document.getElementById('previewPhone');
             preview.contact = document.getElementById('previewContact');
+            preview.headline = document.getElementById('previewHeadline');
             preview.education = document.getElementById('previewEducation');
             preview.skills = document.getElementById('previewSkills');
             preview.experience = document.getElementById('previewExperience');
+            preview.languages = document.getElementById('previewLanguages');
+            preview.certificates = document.getElementById('previewCertificates');
+            preview.hobbies = document.getElementById('previewHobbies');
         }
 
         function downloadPDF() {
@@ -3095,38 +3178,60 @@
             const element = document.getElementById('cvPreview');
             const name = inputs.fullName.value || 'CV';
             
-            // Check if preview has content
-            if (!element || element.textContent.trim() === '' || element.innerHTML.trim() === '') {
-                alert('CV preview is empty. Please fill in your information before downloading.');
-                return;
-            }
-            
-            const downloadBtn = document.querySelector('.download-btn');
+            const downloadBtn = document.querySelector('#paymentSuccess .download-btn');
             const originalText = downloadBtn.textContent;
             downloadBtn.textContent = '📄 Generating PDF...';
             downloadBtn.disabled = true;
 
             try {
-                // Call updateCV function to rebuild preview
-                updateCV();
+                // Update preview to ensure all data is current
+                updatePreview();
                 
-                // Wait for DOM updates
-                await new Promise(resolve => setTimeout(resolve, 500));
+                // Wait for DOM updates and images to load
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                // Ensure photo is loaded if present
-                const photoElement = document.getElementById('previewPhoto');
+                // Create a clone of the element for PDF generation
+                const clonedElement = element.cloneNode(true);
+                clonedElement.style.position = 'absolute';
+                clonedElement.style.left = '-9999px';
+                clonedElement.style.top = '0';
+                clonedElement.style.width = '210mm';
+                clonedElement.style.maxWidth = '210mm';
+                clonedElement.style.minHeight = '297mm';
+                clonedElement.style.boxSizing = 'border-box';
+                clonedElement.style.overflow = 'visible';
+                clonedElement.style.padding = '0';
+                clonedElement.style.margin = '0';
+                clonedElement.style.backgroundColor = '#ffffff';
+                clonedElement.style.border = 'none';
+                clonedElement.style.borderRadius = '0';
+                clonedElement.style.boxShadow = 'none';
+                
+                // Optimize the CV content for perfect PDF fit
+                const cvContent = clonedElement.querySelector('#cvContent');
+                if (cvContent) {
+                    optimizeForPerfectFit(cvContent);
+                }
+                
+                document.body.appendChild(clonedElement);
+                
+                // Ensure photo is properly set in cloned element
+                const photoElement = clonedElement.querySelector('#previewPhoto');
                 if (photoElement && photoDataUrl) {
                     photoElement.src = photoDataUrl;
                     photoElement.style.display = 'block';
+                    photoElement.crossOrigin = 'anonymous';
                     
                     // Wait for image to load
-                    if (!photoElement.complete) {
-                        await new Promise((resolve) => {
+                    await new Promise((resolve) => {
+                        if (photoElement.complete) {
+                            resolve();
+                        } else {
                             photoElement.onload = resolve;
                             photoElement.onerror = resolve;
-                            setTimeout(resolve, 2000); // Timeout after 2 seconds
-                        });
-                    }
+                            setTimeout(resolve, 3000);
+                        }
+                    });
                 }
 
                 // Wait for fonts to load
@@ -3134,55 +3239,43 @@
                     await document.fonts.ready;
                 }
 
-                // Use html2canvas directly for better control
-                const canvas = await html2canvas(element, {
-                    scale: 2,
+                // Additional wait for layout to settle
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Generate canvas with html2canvas - optimized for A4
+                const canvas = await html2canvas(clonedElement, {
+                    scale: 3,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
                     logging: false,
                     letterRendering: true,
-                    width: element.scrollWidth,
-                    height: element.scrollHeight,
-                    onclone: function(clonedDoc) {
-                        // Ensure photo is properly set in cloned document
-                        const clonedPhoto = clonedDoc.querySelector('#previewPhoto');
-                        if (clonedPhoto && photoDataUrl) {
-                            clonedPhoto.src = photoDataUrl;
-                            clonedPhoto.style.display = 'block';
-                        }
-                    }
+                    width: Math.round(210 * 3.78), // A4 width in pixels at 96 DPI
+                    height: Math.round(297 * 3.78), // A4 height in pixels at 96 DPI
+                    windowWidth: Math.round(210 * 3.78),
+                    windowHeight: Math.round(297 * 3.78),
+                    x: 0,
+                    y: 0,
+                    scrollX: 0,
+                    scrollY: 0
                 });
 
-                // Create PDF using jsPDF
+                // Remove the cloned element
+                document.body.removeChild(clonedElement);
+
+                // Create PDF with exact A4 dimensions
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF({
                     orientation: 'portrait',
                     unit: 'mm',
-                    format: 'a4'
+                    format: 'a4',
+                    compress: true
                 });
 
                 const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                const imgWidth = 210; // A4 width in mm
-                const pageHeight = 297; // A4 height in mm
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-
-                let position = 0;
-
-                // Add first page
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                // Add additional pages if needed
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
-
-                // Save the PDF
+                
+                // Add image to fill entire A4 page with no margins
+                pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, '', 'FAST');
                 pdf.save(`${name.replace(/\s+/g, '_')}_CV.pdf`);
                 
                 downloadBtn.textContent = originalText;
@@ -3207,17 +3300,532 @@
                 console.error('PDF generation failed:', error);
                 downloadBtn.textContent = originalText;
                 downloadBtn.disabled = false;
-                
-                // More specific error messages
-                if (error.message.includes('html2canvas')) {
-                    alert('Failed to capture CV content. Please try refreshing the page and try again.');
-                } else if (error.message.includes('jsPDF')) {
-                    alert('Failed to create PDF file. Please check your browser compatibility.');
-                } else {
-                    alert('PDF generation failed. Please ensure all fields are filled and try again.');
-                }
+                alert('PDF generation failed. Please try again or contact support.');
             }
         }
+
+        function optimizeForPerfectFit(element) {
+            // Set up perfect A4 dimensions with proper internal spacing
+            element.style.padding = '20px';
+            element.style.margin = '0';
+            element.style.border = 'none';
+            element.style.borderRadius = '0';
+            element.style.boxShadow = 'none';
+            element.style.width = '100%';
+            element.style.height = 'auto';
+            element.style.minHeight = '100%';
+            element.style.boxSizing = 'border-box';
+            element.style.lineHeight = '1.4';
+            element.style.fontSize = '11pt';
+            element.style.fontFamily = 'Arial, sans-serif';
+            element.style.color = '#333';
+            element.style.backgroundColor = '#ffffff';
+            
+            // Optimize different template layouts for perfect fit
+            const templateClass = element.className;
+            
+            if (templateClass.includes('template-classic')) {
+                optimizeClassicForPDF(element);
+            } else if (templateClass.includes('template-modern')) {
+                optimizeModernForPDF(element);
+            } else if (templateClass.includes('template-creative')) {
+                optimizeCreativeForPDF(element);
+            } else if (templateClass.includes('template-professional')) {
+                optimizeProfessionalForPDF(element);
+            } else if (templateClass.includes('template-premium')) {
+                optimizePremiumForPDF(element);
+            } else if (templateClass.includes('template-executive')) {
+                optimizeExecutiveForPDF(element);
+            } else if (templateClass.includes('template-traditional')) {
+                optimizeTraditionalForPDF(element);
+            } else if (templateClass.includes('template-ats')) {
+                optimizeATSForPDF(element);
+            } else if (templateClass.includes('template-linkedin')) {
+                optimizeLinkedInForPDF(element);
+            }
+            
+            // Universal optimizations for all templates
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach((section, index) => {
+                section.style.marginBottom = index === sections.length - 1 ? '0' : '15px';
+                section.style.pageBreakInside = 'avoid';
+                section.style.breakInside = 'avoid';
+            });
+            
+            const sectionTitles = element.querySelectorAll('.cv-section-title');
+            sectionTitles.forEach(title => {
+                title.style.fontSize = '13pt';
+                title.style.fontWeight = 'bold';
+                title.style.marginBottom = '8px';
+                title.style.marginTop = '0';
+                title.style.pageBreakAfter = 'avoid';
+                title.style.lineHeight = '1.2';
+            });
+            
+            const sectionContent = element.querySelectorAll('.cv-section-content');
+            sectionContent.forEach(content => {
+                content.style.fontSize = '11pt';
+                content.style.lineHeight = '1.4';
+                content.style.margin = '0';
+            });
+            
+            // Optimize names and contact info
+            const names = element.querySelectorAll('.cv-name');
+            names.forEach(name => {
+                name.style.fontSize = '20pt';
+                name.style.fontWeight = 'bold';
+                name.style.marginBottom = '8px';
+                name.style.lineHeight = '1.1';
+            });
+            
+            const contacts = element.querySelectorAll('.cv-contact');
+            contacts.forEach(contact => {
+                contact.style.fontSize = '10pt';
+                contact.style.lineHeight = '1.3';
+                contact.style.marginBottom = '10px';
+            });
+            
+            const headlines = element.querySelectorAll('#previewHeadline');
+            headlines.forEach(headline => {
+                headline.style.fontSize = '11pt';
+                headline.style.marginBottom = '8px';
+                headline.style.lineHeight = '1.2';
+                headline.style.fontStyle = 'italic';
+            });
+        }
+
+        function optimizeForSinglePage(element) {
+            // Legacy function - redirect to new optimizeForPerfectFit
+            optimizeForPerfectFit(element);
+        }
+
+        // PDF-optimized template functions
+        function optimizeClassicForPDF(element) {
+            element.style.padding = '20px';
+            element.style.fontFamily = 'Times New Roman, serif';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.textAlign = 'center';
+                header.style.padding = '0 0 15px 0';
+                header.style.marginBottom = '20px';
+                header.style.borderBottom = '2px solid #333';
+            }
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '100px';
+                photo.style.height = '100px';
+                photo.style.borderRadius = '50%';
+                photo.style.border = '3px solid #2c3e50';
+                photo.style.margin = '0 auto 15px';
+                photo.style.display = 'block';
+            }
+        }
+
+        function optimizeModernForPDF(element) {
+            element.style.padding = '0';
+            element.style.display = 'grid';
+            element.style.gridTemplateColumns = '1fr 2fr';
+            element.style.gap = '0';
+            element.style.minHeight = '297mm';
+            element.style.height = '297mm';
+            element.style.maxHeight = '297mm';
+            element.style.overflow = 'hidden';
+            element.style.fontFamily = 'Arial, sans-serif';
+            
+            const sidebar = element.querySelector('.cv-sidebar');
+            const main = element.querySelector('.cv-main');
+            
+            if (sidebar) {
+                sidebar.style.background = '#2c3e50';
+                sidebar.style.color = 'white';
+                sidebar.style.padding = '20px 15px';
+                sidebar.style.margin = '0';
+                sidebar.style.height = '297mm';
+                sidebar.style.maxHeight = '297mm';
+                sidebar.style.overflow = 'hidden';
+                sidebar.style.boxSizing = 'border-box';
+                sidebar.style.display = 'flex';
+                sidebar.style.flexDirection = 'column';
+            }
+            
+            if (main) {
+                main.style.padding = '20px';
+                main.style.margin = '0';
+                main.style.background = 'white';
+                main.style.height = '297mm';
+                main.style.maxHeight = '297mm';
+                main.style.overflow = 'hidden';
+                main.style.boxSizing = 'border-box';
+                main.style.display = 'flex';
+                main.style.flexDirection = 'column';
+            }
+            
+            // Optimize sections in both sidebar and main
+            const allSections = element.querySelectorAll('.cv-section');
+            allSections.forEach((section, index) => {
+                section.style.marginBottom = index === allSections.length - 1 ? '0' : '12px';
+                section.style.flex = 'none';
+            });
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '80px';
+                photo.style.height = '80px';
+                photo.style.borderRadius = '50%';
+                photo.style.border = '3px solid #3498db';
+                photo.style.margin = '0 auto 15px';
+                photo.style.display = 'block';
+                photo.style.flexShrink = '0';
+            }
+        }
+
+        function optimizeCreativeForPDF(element) {
+            element.style.padding = '0';
+            element.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            element.style.color = 'white';
+            element.style.minHeight = '100%';
+            element.style.fontFamily = 'Helvetica, sans-serif';
+            
+            const content = element.querySelector('.cv-content');
+            if (content) {
+                content.style.padding = '20px';
+                content.style.margin = '0';
+                content.style.minHeight = '100%';
+                content.style.boxSizing = 'border-box';
+            }
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.textAlign = 'center';
+                header.style.marginBottom = '25px';
+                header.style.padding = '0';
+            }
+            
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach(section => {
+                section.style.background = 'rgba(255,255,255,0.1)';
+                section.style.padding = '15px';
+                section.style.marginBottom = '15px';
+                section.style.borderRadius = '10px';
+                section.style.backdropFilter = 'blur(10px)';
+            });
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '110px';
+                photo.style.height = '110px';
+                photo.style.borderRadius = '50%';
+                photo.style.border = '4px solid rgba(255,255,255,0.8)';
+                photo.style.margin = '0 auto 15px';
+                photo.style.display = 'block';
+                photo.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+            }
+        }
+
+        function optimizeProfessionalForPDF(element) {
+            element.style.padding = '0';
+            element.style.background = '#f8f9fa';
+            element.style.borderLeft = '8px solid #2c3e50';
+            element.style.fontFamily = 'Georgia, serif';
+            element.style.minHeight = '297mm';
+            element.style.height = 'auto';
+            element.style.overflow = 'visible';
+            element.style.display = 'flex';
+            element.style.flexDirection = 'column';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.background = '#2c3e50';
+                header.style.color = 'white';
+                header.style.padding = '20px';
+                header.style.margin = '0';
+                header.style.display = 'flex';
+                header.style.alignItems = 'center';
+                header.style.gap = '20px';
+                header.style.flexShrink = '0';
+            }
+            
+            const body = element.querySelector('.cv-body');
+            if (body) {
+                body.style.padding = '20px';
+                body.style.margin = '0';
+                body.style.flex = '1';
+                body.style.display = 'flex';
+                body.style.flexDirection = 'column';
+                body.style.justifyContent = 'flex-start';
+            }
+            
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach((section, index) => {
+                section.style.background = 'white';
+                section.style.padding = '15px';
+                section.style.marginBottom = index === sections.length - 1 ? '0' : '12px';
+                section.style.borderRadius = '8px';
+                section.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                section.style.flex = 'none';
+            });
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '100px';
+                photo.style.height = '100px';
+                photo.style.borderRadius = '10px';
+                photo.style.border = '4px solid white';
+                photo.style.flexShrink = '0';
+            }
+            
+            const headerText = element.querySelector('.cv-header-text');
+            if (headerText) {
+                headerText.style.flex = '1';
+            }
+        }
+
+        function optimizePremiumForPDF(element) {
+            element.style.padding = '0';
+            element.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+            element.style.color = '#2c3e50';
+            element.style.fontFamily = 'Georgia, serif';
+            element.style.minHeight = '297mm';
+            element.style.height = 'auto';
+            element.style.overflow = 'visible';
+            element.style.display = 'flex';
+            element.style.flexDirection = 'column';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.background = 'linear-gradient(135deg, #2c3e50, #34495e)';
+                header.style.color = 'white';
+                header.style.padding = '25px 20px';
+                header.style.margin = '0';
+                header.style.marginBottom = '15px';
+                header.style.textAlign = 'center';
+                header.style.clipPath = 'none';
+                header.style.flexShrink = '0';
+            }
+            
+            const body = element.querySelector('.cv-body');
+            if (body) {
+                body.style.padding = '0 20px 20px';
+                body.style.margin = '0';
+                body.style.flex = '1';
+                body.style.display = 'flex';
+                body.style.flexDirection = 'column';
+                body.style.justifyContent = 'flex-start';
+            }
+            
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach((section, index) => {
+                section.style.background = 'white';
+                section.style.padding = '15px';
+                section.style.marginBottom = index === sections.length - 1 ? '0' : '12px';
+                section.style.borderRadius = '10px';
+                section.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                section.style.borderLeft = '3px solid #3498db';
+                section.style.flex = 'none';
+            });
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '100px';
+                photo.style.height = '100px';
+                photo.style.borderRadius = '15px';
+                photo.style.border = '4px solid white';
+                photo.style.margin = '0 auto 20px';
+                photo.style.display = 'block';
+                photo.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+            }
+        }
+
+        function optimizeExecutiveForPDF(element) {
+            element.style.padding = '0';
+            element.style.background = '#f8f9fa';
+            element.style.border = '1px solid #e9ecef';
+            element.style.fontFamily = 'Georgia, serif';
+            element.style.minHeight = '297mm';
+            element.style.height = 'auto';
+            element.style.overflow = 'visible';
+            element.style.display = 'flex';
+            element.style.flexDirection = 'column';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.background = 'linear-gradient(135deg, #1a1a2e, #16213e)';
+                header.style.color = 'white';
+                header.style.padding = '25px 20px';
+                header.style.margin = '0';
+                header.style.textAlign = 'center';
+                header.style.position = 'relative';
+                header.style.flexShrink = '0';
+            }
+            
+            const body = element.querySelector('.cv-body');
+            if (body) {
+                body.style.padding = '30px 20px 20px';
+                body.style.margin = '0';
+                body.style.flex = '1';
+                body.style.display = 'flex';
+                body.style.flexDirection = 'column';
+                body.style.justifyContent = 'flex-start';
+            }
+            
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach((section, index) => {
+                section.style.background = 'white';
+                section.style.padding = '15px';
+                section.style.marginBottom = index === sections.length - 1 ? '0' : '12px';
+                section.style.borderRadius = '10px';
+                section.style.boxShadow = '0 3px 15px rgba(0,0,0,0.1)';
+                section.style.borderLeft = '3px solid #667eea';
+                section.style.flex = 'none';
+            });
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '120px';
+                photo.style.height = '120px';
+                photo.style.borderRadius = '50%';
+                photo.style.border = '5px solid rgba(255,255,255,0.8)';
+                photo.style.margin = '0 auto 20px';
+                photo.style.display = 'block';
+                photo.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            }
+        }
+
+        function optimizeTraditionalForPDF(element) {
+            element.style.padding = '20px';
+            element.style.background = 'white';
+            element.style.color = '#2c3e50';
+            element.style.border = '1px solid #bdc3c7';
+            element.style.fontFamily = 'Georgia, serif';
+            element.style.lineHeight = '1.6';
+            element.style.minHeight = '100%';
+            element.style.boxSizing = 'border-box';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.textAlign = 'center';
+                header.style.padding = '0 0 20px 0';
+                header.style.marginBottom = '25px';
+                header.style.borderBottom = '3px double #2c3e50';
+            }
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '80px';
+                photo.style.height = '80px';
+                photo.style.borderRadius = '5px';
+                photo.style.border = '2px solid #2c3e50';
+                photo.style.margin = '0 auto 15px';
+                photo.style.display = 'block';
+            }
+        }
+
+        function optimizeATSForPDF(element) {
+            element.style.padding = '30px';
+            element.style.background = 'white';
+            element.style.color = '#000';
+            element.style.fontFamily = 'Arial, sans-serif';
+            element.style.fontSize = '11pt';
+            element.style.lineHeight = '1.4';
+            element.style.minHeight = '100%';
+            element.style.boxSizing = 'border-box';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.textAlign = 'left';
+                header.style.padding = '0 0 12px 0';
+                header.style.marginBottom = '18px';
+                header.style.borderBottom = '2px solid #000';
+            }
+            
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach(section => {
+                section.style.marginBottom = '18px';
+                section.style.padding = '0';
+            });
+            
+            const sectionTitles = element.querySelectorAll('.cv-section-title');
+            sectionTitles.forEach(title => {
+                title.style.fontSize = '12pt';
+                title.style.fontWeight = 'bold';
+                title.style.textTransform = 'uppercase';
+                title.style.borderBottom = '1px solid #000';
+                title.style.paddingBottom = '3px';
+                title.style.marginBottom = '8px';
+            });
+            
+            // Hide photo for ATS optimization
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.display = 'none';
+            }
+        }
+
+        function optimizeLinkedInForPDF(element) {
+            element.style.padding = '0';
+            element.style.background = 'white';
+            element.style.color = '#000';
+            element.style.fontFamily = 'Inter, sans-serif';
+            element.style.lineHeight = '1.5';
+            element.style.minHeight = '100%';
+            
+            const header = element.querySelector('.cv-header');
+            if (header) {
+                header.style.background = '#0077b5';
+                header.style.color = 'white';
+                header.style.padding = '20px';
+                header.style.margin = '0';
+            }
+            
+            const body = element.querySelector('.cv-body');
+            if (body) {
+                body.style.padding = '20px';
+                body.style.margin = '0';
+            }
+            
+            const headerContent = element.querySelector('.cv-header-content');
+            if (headerContent) {
+                headerContent.style.display = 'flex';
+                headerContent.style.alignItems = 'center';
+                headerContent.style.gap = '20px';
+            }
+            
+            const sections = element.querySelectorAll('.cv-section');
+            sections.forEach((section, index) => {
+                section.style.marginBottom = '25px';
+                section.style.paddingBottom = '20px';
+                if (index < sections.length - 1) {
+                    section.style.borderBottom = '1px solid #e0e0e0';
+                }
+            });
+            
+            const photo = element.querySelector('.cv-photo');
+            if (photo) {
+                photo.style.width = '100px';
+                photo.style.height = '100px';
+                photo.style.borderRadius = '50%';
+                photo.style.border = '4px solid white';
+                photo.style.flexShrink = '0';
+            }
+            
+            const headerText = element.querySelector('.cv-header-text');
+            if (headerText) {
+                headerText.style.flex = '1';
+            }
+        }
+
+        // Legacy template optimization functions (for backward compatibility)
+        function optimizeClassicTemplate(element) { optimizeClassicForPDF(element); }
+        function optimizeModernTemplate(element) { optimizeModernForPDF(element); }
+        function optimizeCreativeTemplate(element) { optimizeCreativeForPDF(element); }
+        function optimizeProfessionalTemplate(element) { optimizeProfessionalForPDF(element); }
+        function optimizePremiumTemplate(element) { optimizePremiumForPDF(element); }
+        function optimizeExecutiveTemplate(element) { optimizeExecutiveForPDF(element); }
+        function optimizeTraditionalTemplate(element) { optimizeTraditionalForPDF(element); }
+        function optimizeATSTemplate(element) { optimizeATSForPDF(element); }
+        function optimizeLinkedInTemplate(element) { optimizeLinkedInForPDF(element); }
 
         // Social Login Functions
         function loginWithGoogle() {
@@ -3249,5 +3857,5 @@
         updatePreview();
         checkAuthStatus();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c890cc92f5e1c4',t:'MTc1NDc1NjI2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ca0b7120cf536e',t:'MTc1NDc3MTc3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
