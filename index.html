@@ -1977,6 +1977,19 @@
 
             <div class="preview-section">
                 <h3 style="margin-bottom: 20px; color: #2c3e50;">Live Preview</h3>
+                
+                <!-- Content Overflow Warning -->
+                <div id="overflowWarning" style="display: none; background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 1.2rem;"></i>
+                        <strong>Content Overflow Warning!</strong>
+                    </div>
+                    <div id="overflowMessage" style="font-size: 0.95rem; line-height: 1.4;"></div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.9;">
+                        💡 <strong>Tip:</strong> Consider shortening your content or switching to a template with more space.
+                    </div>
+                </div>
+                
                 <div class="cv-preview" id="cvPreview">
                     <div class="template-classic" id="cvContent">
                         <div class="cv-header">
@@ -2118,7 +2131,10 @@
             if (key === 'photo') {
                 inputs[key].addEventListener('change', handlePhotoUpload);
             } else {
-                inputs[key].addEventListener('input', updatePreview);
+                inputs[key].addEventListener('input', () => {
+                    updatePreview();
+                    checkContentOverflow();
+                });
             }
         });
 
@@ -2130,6 +2146,7 @@
                 currentTemplate = btn.dataset.template;
                 updateTemplate();
                 updatePreview();
+                checkContentOverflow();
             });
         });
 
@@ -2302,6 +2319,173 @@
         // Alias function for PDF generation compatibility
         function updateCV() {
             updatePreview();
+        }
+
+        // Content overflow detection system
+        function checkContentOverflow() {
+            const cvContent = document.getElementById('cvContent');
+            const warningDiv = document.getElementById('overflowWarning');
+            const messageDiv = document.getElementById('overflowMessage');
+            
+            if (!cvContent || !warningDiv || !messageDiv) return;
+            
+            // Get template-specific limits and check content
+            const templateLimits = getTemplateLimits(currentTemplate);
+            const contentAnalysis = analyzeContent();
+            
+            let warnings = [];
+            let hasOverflow = false;
+            
+            // Check each content type against template limits
+            if (contentAnalysis.education.lines > templateLimits.education) {
+                warnings.push(`📚 <strong>Education section:</strong> ${contentAnalysis.education.lines} lines (recommended: ${templateLimits.education} lines max)`);
+                hasOverflow = true;
+            }
+            
+            if (contentAnalysis.experience.lines > templateLimits.experience) {
+                warnings.push(`💼 <strong>Work Experience:</strong> ${contentAnalysis.experience.lines} lines (recommended: ${templateLimits.experience} lines max)`);
+                hasOverflow = true;
+            }
+            
+            if (contentAnalysis.skills.lines > templateLimits.skills) {
+                warnings.push(`🛠️ <strong>Skills section:</strong> ${contentAnalysis.skills.lines} lines (recommended: ${templateLimits.skills} lines max)`);
+                hasOverflow = true;
+            }
+            
+            if (contentAnalysis.languages.lines > templateLimits.languages && contentAnalysis.languages.lines > 0) {
+                warnings.push(`🌍 <strong>Languages section:</strong> ${contentAnalysis.languages.lines} lines (recommended: ${templateLimits.languages} lines max)`);
+                hasOverflow = true;
+            }
+            
+            if (contentAnalysis.certificates.lines > templateLimits.certificates && contentAnalysis.certificates.lines > 0) {
+                warnings.push(`🏆 <strong>Certificates section:</strong> ${contentAnalysis.certificates.lines} lines (recommended: ${templateLimits.certificates} lines max)`);
+                hasOverflow = true;
+            }
+            
+            if (contentAnalysis.hobbies.lines > templateLimits.hobbies && contentAnalysis.hobbies.lines > 0) {
+                warnings.push(`🎯 <strong>Hobbies section:</strong> ${contentAnalysis.hobbies.lines} lines (recommended: ${templateLimits.hobbies} lines max)`);
+                hasOverflow = true;
+            }
+            
+            // Show or hide warning
+            if (hasOverflow) {
+                messageDiv.innerHTML = `
+                    <div style="margin-bottom: 10px;">Your content may not fit properly in the <strong>${currentTemplate.charAt(0).toUpperCase() + currentTemplate.slice(1)}</strong> template:</div>
+                    ${warnings.join('<br>')}
+                    <div style="margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; font-size: 0.9rem;">
+                        <strong>Template Info:</strong> ${templateLimits.description}
+                    </div>
+                `;
+                warningDiv.style.display = 'block';
+            } else {
+                warningDiv.style.display = 'none';
+            }
+        }
+        
+        function getTemplateLimits(template) {
+            const limits = {
+                classic: {
+                    education: 4,
+                    experience: 8,
+                    skills: 6,
+                    languages: 3,
+                    certificates: 4,
+                    hobbies: 3,
+                    description: "Traditional single-column layout with moderate space for each section."
+                },
+                modern: {
+                    education: 5,
+                    experience: 10,
+                    skills: 8,
+                    languages: 4,
+                    certificates: 5,
+                    hobbies: 4,
+                    description: "Two-column layout with sidebar for skills and languages, main area for experience."
+                },
+                creative: {
+                    education: 4,
+                    experience: 7,
+                    skills: 5,
+                    languages: 3,
+                    certificates: 4,
+                    hobbies: 3,
+                    description: "Colorful gradient design with sections in boxes - limited space per section."
+                },
+                professional: {
+                    education: 3,
+                    experience: 6,
+                    skills: 4,
+                    languages: 2,
+                    certificates: 3,
+                    hobbies: 2,
+                    description: "Corporate design with photo header - compact sections due to header space."
+                },
+                premium: {
+                    education: 3,
+                    experience: 6,
+                    skills: 4,
+                    languages: 2,
+                    certificates: 3,
+                    hobbies: 2,
+                    description: "Elegant design with large header and decorative elements - limited content space."
+                },
+                executive: {
+                    education: 3,
+                    experience: 5,
+                    skills: 4,
+                    languages: 2,
+                    certificates: 3,
+                    hobbies: 2,
+                    description: "Luxury design with prominent header - very limited space for content sections."
+                },
+                traditional: {
+                    education: 4,
+                    experience: 8,
+                    skills: 6,
+                    languages: 3,
+                    certificates: 4,
+                    hobbies: 3,
+                    description: "Classic formal layout with good balance of space for all sections."
+                },
+                ats: {
+                    education: 6,
+                    experience: 12,
+                    skills: 8,
+                    languages: 4,
+                    certificates: 6,
+                    hobbies: 4,
+                    description: "Plain text optimized for ATS systems - most space available for content."
+                },
+                linkedin: {
+                    education: 4,
+                    experience: 8,
+                    skills: 6,
+                    languages: 3,
+                    certificates: 5,
+                    hobbies: 3,
+                    description: "LinkedIn-style with blue header and professional sections layout."
+                }
+            };
+            
+            return limits[template] || limits.classic;
+        }
+        
+        function analyzeContent() {
+            const analysis = {
+                education: { lines: countLines(inputs.education.value) },
+                experience: { lines: countLines(inputs.experience.value) },
+                skills: { lines: countLines(inputs.skills.value) },
+                languages: { lines: countLines(inputs.languages.value) },
+                certificates: { lines: countLines(inputs.certificates.value) },
+                hobbies: { lines: countLines(inputs.hobbies.value) }
+            };
+            
+            return analysis;
+        }
+        
+        function countLines(text) {
+            if (!text || !text.trim()) return 0;
+            return text.trim().split('\n').length;
         }
 
         function updateTemplate() {
@@ -2721,6 +2905,21 @@
         function generateBotResponse(userMessage) {
             const msg = userMessage.toLowerCase();
             
+            // Content overflow and template space questions
+            if (msg.includes('overflow') || msg.includes('warning') || msg.includes('too much') || msg.includes('fit') || msg.includes('space') || msg.includes('content') && (msg.includes('long') || msg.includes('much'))) {
+                return "⚠️ <strong>Content Overflow System:</strong><br><br>I monitor your content in real-time! When you type too much for your selected template, you'll see a red warning above the preview. Each template has different space limits:<br><br>📊 <strong>Most Space:</strong> ATS Optimized (12 lines experience)<br>📊 <strong>Good Space:</strong> Modern, Traditional, Classic (8-10 lines)<br>📊 <strong>Limited Space:</strong> Professional, Premium, Executive (5-6 lines)<br><br>💡 <strong>Solutions:</strong><br>• Shorten your content to key points<br>• Switch to a template with more space<br>• Use bullet points instead of paragraphs<br>• Focus on most recent/relevant experience";
+            }
+            
+            // Template comparison and recommendations
+            if (msg.includes('which template') || msg.includes('best template') || msg.includes('recommend') || msg.includes('choose template')) {
+                return "🎯 <strong>Template Recommendations:</strong><br><br>📝 <strong>Lots of Experience?</strong> → ATS Optimized or Modern<br>🎨 <strong>Creative Field?</strong> → Creative or Modern<br>💼 <strong>Corporate Job?</strong> → Professional or Executive<br>📚 <strong>Entry Level?</strong> → Classic or Traditional<br>🤖 <strong>Online Applications?</strong> → ATS Optimized<br><br>💡 <strong>Pro Tip:</strong> Start with ATS Optimized if you have lots of content, then switch to a prettier template if everything fits!";
+            }
+            
+            // Specific template questions
+            if (msg.includes('professional template') || msg.includes('premium template') || msg.includes('executive template')) {
+                return "⚠️ <strong>Compact Templates Warning:</strong><br><br>Professional, Premium, and Executive templates have <strong>limited space</strong> due to their elegant headers and design elements:<br><br>📏 <strong>Professional:</strong> 6 lines max for experience<br>📏 <strong>Premium:</strong> 6 lines max for experience<br>📏 <strong>Executive:</strong> 5 lines max for experience<br><br>💡 <strong>Best for:</strong><br>• Senior professionals with concise experience<br>• Executive-level positions<br>• When you want maximum visual impact<br><br>🔄 <strong>Alternative:</strong> Try Modern template for similar style with more space!";
+            }
+            
             // Privacy related questions
             if (msg.includes('privacy') || msg.includes('data') || msg.includes('secure') || msg.includes('safe')) {
                 return "🔒 Your privacy is our priority! We use industry-standard encryption, never share your data with third parties, and automatically delete all uploaded information after PDF generation. Your personal details are processed securely and stored temporarily only during the CV creation process.";
@@ -2728,46 +2927,56 @@
             
             // Payment related questions
             if (msg.includes('payment') || msg.includes('pay') || msg.includes('cost') || msg.includes('price') || msg.includes('refund')) {
-                return "💳 Our service costs $1.00 for one CV generation. Payment is processed securely through encrypted channels. Please note: each payment allows ONE CV download only, and refunds aren't available after successful PDF generation. Make sure your information is complete before paying!";
+                return "💳 Our service costs $1.00 for one CV generation. Payment is processed securely through encrypted channels. Please note: each payment allows ONE CV download only, and refunds aren't available after successful PDF generation. Make sure your information is complete and fits properly before paying!";
             }
             
             // Template questions
             if (msg.includes('template') || msg.includes('design') || msg.includes('style')) {
-                return "🎨 We offer 5 professional templates: Classic (traditional), Modern (two-column), Creative (colorful gradient), Professional (corporate with photo), and Minimal (clean & simple). Each template is fully responsive and designed by professionals. You can switch between them anytime before payment!";
+                return "🎨 We offer 9 professional templates with different space capacities:<br><br><strong>🏆 Most Space:</strong><br>• ATS Optimized - Plain but roomy<br>• Modern - Two-column with good balance<br><br><strong>⚖️ Balanced Space:</strong><br>• Classic - Traditional single column<br>• Traditional - Formal layout<br>• LinkedIn - Professional social style<br><br><strong>🎭 Stylish but Compact:</strong><br>• Creative - Colorful gradient<br>• Professional - Corporate with photo<br>• Premium - Elegant with decorations<br>• Executive - Luxury design<br><br>💡 Watch for the red overflow warning when typing!";
             }
             
-            // CV writing tips
+            // CV writing tips with overflow awareness
             if (msg.includes('tips') || msg.includes('help') || msg.includes('advice') || msg.includes('write') || msg.includes('resume')) {
-                return "✍️ CV Writing Tips:<br>• Keep it concise (1-2 pages max)<br>• Use action verbs (developed, managed, created)<br>• Quantify achievements with numbers<br>• Tailor skills to the job you want<br>• Include relevant keywords<br>• Proofread carefully for errors<br>• Use a professional email address";
+                return "✍️ <strong>Smart CV Writing Tips:</strong><br><br><strong>📏 Content Length:</strong><br>• Watch the overflow warning above preview<br>• Use bullet points (•) instead of paragraphs<br>• Focus on last 10 years of experience<br>• Quantify achievements with numbers<br><br><strong>📝 Writing Style:</strong><br>• Start with action verbs (developed, managed, led)<br>• Keep bullet points to 1-2 lines each<br>• Use keywords from job descriptions<br>• Avoid personal pronouns (I, me, my)<br><br><strong>🎯 Content Priority:</strong><br>• Most recent experience first<br>• Relevant skills for target job<br>• Measurable achievements<br>• Professional email address";
             }
             
             // Technical questions
             if (msg.includes('download') || msg.includes('pdf') || msg.includes('format') || msg.includes('file')) {
-                return "📄 After payment, you'll get a high-quality PDF file that's perfect for printing or digital sharing. The PDF maintains all formatting and is compatible with all devices. Download happens instantly after successful payment!";
+                return "📄 After payment, you'll get a high-quality PDF file that's perfect for printing or digital sharing. The PDF maintains all formatting and is compatible with all devices. Download happens instantly after successful payment! The system ensures your content fits perfectly on A4 pages.";
             }
             
             // Photo questions
             if (msg.includes('photo') || msg.includes('picture') || msg.includes('image')) {
-                return "📸 You can upload a professional headshot in JPG, PNG, or other common formats. The photo will be automatically resized and positioned perfectly in your chosen template. For best results, use a clear, professional photo with good lighting!";
+                return "📸 You can upload a professional headshot in JPG, PNG, or other common formats. The photo will be automatically resized and positioned perfectly in your chosen template. For best results, use a clear, professional photo with good lighting! Note: ATS template hides photos for better compatibility with tracking systems.";
+            }
+            
+            // Line limits and content questions
+            if (msg.includes('lines') || msg.includes('limit') || msg.includes('how much') || msg.includes('how many')) {
+                return "📊 <strong>Template Content Limits:</strong><br><br><strong>🔢 Experience Section:</strong><br>• ATS: 12 lines • Modern: 10 lines<br>• Classic/Traditional: 8 lines<br>• LinkedIn: 8 lines • Creative: 7 lines<br>• Professional/Premium: 6 lines<br>• Executive: 5 lines<br><br><strong>🎓 Education Section:</strong><br>• ATS: 6 lines • Modern: 5 lines<br>• Others: 3-4 lines<br><br><strong>🛠️ Skills Section:</strong><br>• ATS/Modern: 8 lines<br>• Classic/Traditional: 6 lines<br>• Others: 4-5 lines<br><br>💡 These are recommendations - the system will warn you if you exceed them!";
             }
             
             // Contact questions
-            if (msg.includes('contact') || msg.includes('support') || msg.includes('help') || msg.includes('problem')) {
+            if (msg.includes('contact') || msg.includes('support') || msg.includes('problem')) {
                 return "📧 For any technical issues, questions, or support needs, please contact our developer directly at <strong>tonyazer86@gmail.com</strong>. We typically respond within 24 hours and are happy to help with any concerns!";
             }
             
             // Greeting responses
             if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey') || msg.includes('good')) {
-                return "👋 Hello! I'm here to help you create an amazing CV. I can answer questions about our templates, payment process, privacy policy, or give you CV writing tips. What would you like to know?";
+                return "👋 Hello! I'm your smart CV assistant. I can help you with templates, content optimization, overflow warnings, and writing tips. I also monitor your content in real-time to ensure it fits perfectly! What would you like to know?";
             }
             
             // Thank you responses
             if (msg.includes('thank') || msg.includes('thanks')) {
-                return "😊 You're very welcome! I'm glad I could help. If you have any other questions about creating your CV, feel free to ask anytime!";
+                return "😊 You're very welcome! I'm glad I could help. Remember to watch for the overflow warning as you type - it'll help you create the perfect CV that fits beautifully in your chosen template!";
+            }
+            
+            // ATS questions
+            if (msg.includes('ats') || msg.includes('applicant tracking') || msg.includes('tracking system')) {
+                return "🤖 <strong>ATS (Applicant Tracking System) Info:</strong><br><br>Our ATS Optimized template is designed to pass through automated screening systems:<br><br>✅ <strong>ATS-Friendly Features:</strong><br>• Plain text formatting<br>• No photos or graphics<br>• Standard section headings<br>• Simple bullet points<br>• Maximum content space (12 lines for experience!)<br><br>💡 <strong>When to Use:</strong><br>• Applying through company websites<br>• Large corporations<br>• When you have lots of experience to include<br><br>🎯 <strong>Pro Tip:</strong> Use ATS template first to fit all content, then try other templates if you want something prettier!";
             }
             
             // Default response for unrecognized questions
-            return `🤔 I'm not sure about that specific question, but I'd be happy to help! I can assist with:<br><br>• CV writing tips and advice<br>• Template information<br>• Payment and pricing details<br>• Privacy and security questions<br>• Technical support<br><br>For anything else, please contact our developer directly at <strong>tonyazer86@gmail.com</strong> - they'll be able to give you a detailed answer within 24 hours!`;
+            return `🤔 I'm not sure about that specific question, but I'd be happy to help! I can assist with:<br><br>• 📊 Template space limits and overflow warnings<br>• 🎨 Template recommendations based on your needs<br>• ✍️ CV writing tips and content optimization<br>• 💳 Payment and pricing details<br>• 🔒 Privacy and security questions<br>• 🤖 ATS optimization advice<br>• 📄 PDF generation and technical support<br><br>For anything else, please contact our developer directly at <strong>tonyazer86@gmail.com</strong> - they'll be able to give you a detailed answer within 24 hours!`;
         }
 
         // Authentication System
@@ -3857,5 +4066,5 @@
         updatePreview();
         checkAuthStatus();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ca0b7120cf536e',t:'MTc1NDc3MTc3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96cff9c802801988',t:'MTc1NDgzMzk2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
