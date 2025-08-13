@@ -1524,20 +1524,20 @@
                 <span style="font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CVCraft Pro</span>
             </a>
             <div class="navbar-nav">
-                <a href="#" class="nav-link" onclick="showHome()">Home</a>
-                <a href="#" class="nav-link" onclick="showFeatures()">Features</a>
+                <a href="#" class="nav-link" onclick="showHome()" data-translate="home">Home</a>
+                <a href="#" class="nav-link" onclick="showFeatures()" data-translate="features">Features</a>
                 <div class="user-menu" id="userMenu" style="display: none;">
                     <div class="user-avatar" onclick="toggleUserMenu()" id="userAvatar">JD</div>
                     <div class="user-dropdown" id="userDropdown">
-                        <a href="#" onclick="showDashboard()"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                        <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> Profile</a>
-                        <a href="#" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</a>
-                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a href="#" onclick="showDashboard()"><i class="fas fa-tachometer-alt"></i> <span data-translate="dashboard">Dashboard</span></a>
+                        <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> <span data-translate="profile">Profile</span></a>
+                        <a href="#" onclick="showSettings()"><i class="fas fa-cog"></i> <span data-translate="settings">Settings</span></a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span data-translate="logout">Logout</span></a>
                     </div>
                 </div>
                 <div id="authButtons">
-                    <a href="#" class="nav-link" onclick="showAuthModal('login')">Login</a>
-                    <a href="#" class="nav-link" onclick="showAuthModal('signup')">Sign Up</a>
+                    <a href="#" class="nav-link" onclick="showAuthModal('login')" data-translate="login">Login</a>
+                    <a href="#" class="nav-link" onclick="showAuthModal('signup')" data-translate="signup">Sign Up</a>
                 </div>
                 <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
             </div>
@@ -1549,43 +1549,43 @@
         <div class="modal">
             <button class="close-modal" onclick="closeAuthModal()">&times;</button>
             <div class="modal-header">
-                <h2 id="modalTitle">Welcome to CVCraft Pro</h2>
-                <p id="modalSubtitle">Create professional CVs in minutes</p>
+                <h2 id="modalTitle" data-translate="welcomeTitle">Welcome to CVCraft Pro</h2>
+                <p id="modalSubtitle" data-translate="welcomeSubtitle">Create professional CVs in minutes</p>
             </div>
             
             <div class="auth-tabs">
-                <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
-                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+                <div class="auth-tab active" onclick="switchAuthTab('login')" data-translate="login">Login</div>
+                <div class="auth-tab" onclick="switchAuthTab('signup')" data-translate="signup">Sign Up</div>
             </div>
 
             <!-- Login Form -->
             <form class="auth-form active" id="loginForm">
                 <div class="form-group">
-                    <label for="loginEmail">Email Address</label>
+                    <label for="loginEmail" data-translate="emailAddress">Email Address</label>
                     <input type="email" id="loginEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">Password</label>
+                    <label for="loginPassword" data-translate="password">Password</label>
                     <input type="password" id="loginPassword" placeholder="Enter your password" required>
                 </div>
                 <div style="text-align: right; margin-bottom: 20px;">
-                    <a href="#" onclick="showForgotPassword()" style="color: #3498db; text-decoration: none; font-size: 0.9rem;">Forgot Password?</a>
+                    <a href="#" onclick="showForgotPassword()" style="color: #3498db; text-decoration: none; font-size: 0.9rem;" data-translate="forgotPassword">Forgot Password?</a>
                 </div>
                 <button type="submit" class="download-btn" onclick="handleLogin(event)">
-                    <i class="fas fa-sign-in-alt"></i> Login to Account
+                    <i class="fas fa-sign-in-alt"></i> <span data-translate="loginToAccount">Login to Account</span>
                 </button>
                 
                 <div style="margin: 20px 0; text-align: center; position: relative;">
                     <div style="border-top: 1px solid #ddd; margin: 20px 0;"></div>
-                    <span style="background: white; padding: 0 15px; color: #666; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">or continue with</span>
+                    <span style="background: white; padding: 0 15px; color: #666; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);" data-translate="orContinueWith">or continue with</span>
                 </div>
                 
                 <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                     <button type="button" onclick="loginWithGoogle()" style="flex: 1; padding: 12px; background: #db4437; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <i class="fab fa-google"></i> Google
+                        <i class="fab fa-google"></i> <span data-translate="google">Google</span>
                     </button>
                     <button type="button" onclick="loginWithFacebook()" style="flex: 1; padding: 12px; background: #4267B2; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <i class="fab fa-facebook-f"></i> Facebook
+                        <i class="fab fa-facebook-f"></i> <span data-translate="facebook">Facebook</span>
                     </button>
                 </div>
             </form>
@@ -1593,42 +1593,42 @@
             <!-- Sign Up Form -->
             <form class="auth-form" id="signupForm">
                 <div class="form-group">
-                    <label for="signupName">Full Name</label>
+                    <label for="signupName" data-translate="fullNameAuth">Full Name</label>
                     <input type="text" id="signupName" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
-                    <label for="signupEmail">Email Address</label>
+                    <label for="signupEmail" data-translate="emailAddress">Email Address</label>
                     <input type="email" id="signupEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" placeholder="Create a password (min 8 characters)" required minlength="8">
+                    <label for="signupPassword" data-translate="password">Password</label>
+                    <input type="password" id="signupPassword" data-translate-placeholder="createPassword" placeholder="Create a password (min 8 characters)" required minlength="8">
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
+                    <label for="confirmPassword" data-translate="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
                 </div>
                 <div style="margin-bottom: 20px;">
                     <label style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; cursor: pointer;">
                         <input type="checkbox" id="agreeTerms" required>
-                        I agree to the <a href="#" style="color: #3498db;">Terms of Service</a> and <a href="#" style="color: #3498db;">Privacy Policy</a>
+                        <span data-translate="agreeTerms">I agree to the Terms of Service and Privacy Policy</span>
                     </label>
                 </div>
                 <button type="submit" class="download-btn" onclick="handleSignup(event)">
-                    <i class="fas fa-user-plus"></i> Create Account
+                    <i class="fas fa-user-plus"></i> <span data-translate="createAccount">Create Account</span>
                 </button>
                 
                 <div style="margin: 20px 0; text-align: center; position: relative;">
                     <div style="border-top: 1px solid #ddd; margin: 20px 0;"></div>
-                    <span style="background: white; padding: 0 15px; color: #666; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">or sign up with</span>
+                    <span style="background: white; padding: 0 15px; color: #666; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);" data-translate="orSignUpWith">or sign up with</span>
                 </div>
                 
                 <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                     <button type="button" onclick="signupWithGoogle()" style="flex: 1; padding: 12px; background: #db4437; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <i class="fab fa-google"></i> Google
+                        <i class="fab fa-google"></i> <span data-translate="google">Google</span>
                     </button>
                     <button type="button" onclick="signupWithFacebook()" style="flex: 1; padding: 12px; background: #4267B2; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <i class="fab fa-facebook-f"></i> Facebook
+                        <i class="fab fa-facebook-f"></i> <span data-translate="facebook">Facebook</span>
                     </button>
                 </div>
             </form>
@@ -1636,17 +1636,17 @@
             <!-- Forgot Password Form -->
             <form class="auth-form" id="forgotForm">
                 <div class="form-group">
-                    <label for="forgotEmail">Email Address</label>
+                    <label for="forgotEmail" data-translate="emailAddress">Email Address</label>
                     <input type="email" id="forgotEmail" placeholder="Enter your email address" required>
                 </div>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;" data-translate="resetLinkSent">
                     We'll send you a link to reset your password.
                 </p>
                 <button type="submit" class="download-btn" onclick="handleForgotPassword(event)">
-                    <i class="fas fa-paper-plane"></i> Send Reset Link
+                    <i class="fas fa-paper-plane"></i> <span data-translate="sendResetLink">Send Reset Link</span>
                 </button>
                 <div style="text-align: center; margin-top: 15px;">
-                    <a href="#" onclick="switchAuthTab('login')" style="color: #3498db; text-decoration: none; font-size: 0.9rem;">Back to Login</a>
+                    <a href="#" onclick="switchAuthTab('login')" style="color: #3498db; text-decoration: none; font-size: 0.9rem;" data-translate="backToLogin">Back to Login</a>
                 </div>
             </form>
         </div>
@@ -1655,8 +1655,8 @@
     <!-- Features Page -->
     <div class="features-page" id="featuresPage" style="display: none; padding-top: 80px;">
         <div class="features-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white; padding: 60px 20px; text-align: center;">
-            <h1 style="font-size: 3rem; margin-bottom: 20px; font-weight: 700;">Powerful Features</h1>
-            <p style="font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Everything you need to create professional CVs that get you hired</p>
+            <h1 style="font-size: 3rem; margin-bottom: 20px; font-weight: 700;" data-translate="powerfulFeatures">Powerful Features</h1>
+            <p style="font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto;" data-translate="featuresSubtitle">Everything you need to create professional CVs that get you hired</p>
         </div>
         
         <div class="features-content" style="max-width: 1200px; margin: 0 auto; padding: 60px 20px;">
@@ -1815,7 +1815,7 @@
             <div style="width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: bold;" id="profileAvatar">JD</div>
             <h1 id="profileUserName">John Doe</h1>
             <p id="profileUserEmail">john.doe@example.com</p>
-            <p style="opacity: 0.9; margin-top: 10px;">Member since <span id="profileMemberSince">January 2024</span></p>
+            <p style="opacity: 0.9; margin-top: 10px;"><span data-translate="memberSince">Member since</span> <span id="profileMemberSince">January 2024</span></p>
         </div>
         
         <div class="profile-content" style="max-width: 800px; margin: 0 auto; padding: 40px 20px;">
@@ -1884,8 +1884,8 @@
     <!-- Settings Page -->
     <div class="settings-page" id="settingsPage" style="display: none; padding-top: 80px;">
         <div class="settings-header" style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white; padding: 40px 20px; text-align: center;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 15px;">Settings</h1>
-            <p style="font-size: 1.2rem; opacity: 0.9;">Customize your CVCraft Pro experience</p>
+            <h1 style="font-size: 2.5rem; margin-bottom: 15px;" data-translate="settings">Settings</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;" data-translate="settingsSubtitle">Customize your CVCraft Pro experience</p>
         </div>
         
         <div class="settings-content" style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
@@ -1898,14 +1898,25 @@
                 <div style="display: grid; gap: 25px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
                         <div>
-                            <h4 style="color: #2c3e50; margin-bottom: 5px;">Dark Mode</h4>
-                            <p style="color: #666; font-size: 0.9rem;">Switch between light and dark themes</p>
+                            <h4 style="color: #2c3e50; margin-bottom: 5px;" data-translate="darkMode">Dark Mode</h4>
+                            <p style="color: #666; font-size: 0.9rem;" data-translate="darkModeDesc">Switch between light and dark themes</p>
                         </div>
                         <label style="position: relative; display: inline-block; width: 60px; height: 34px;">
                             <input type="checkbox" id="darkModeToggle" onchange="toggleThemeFromSettings()" style="opacity: 0; width: 0; height: 0;">
                             <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
                             <span style="position: absolute; content: ''; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%;"></span>
                         </label>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                        <div>
+                            <h4 style="color: #2c3e50; margin-bottom: 5px;" data-translate="language">Language</h4>
+                            <p style="color: #666; font-size: 0.9rem;" data-translate="languageDesc">Choose your preferred language</p>
+                        </div>
+                        <select id="languageSelect" onchange="changeLanguage()" style="padding: 8px 12px; border: 2px solid #e9ecef; border-radius: 8px; background: white; color: #2c3e50; font-size: 1rem; cursor: pointer; min-width: 120px;">
+                            <option value="en">🇺🇸 English</option>
+                            <option value="es">🇪🇸 Español</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -1979,49 +1990,49 @@
     <!-- Dashboard -->
     <div class="dashboard" id="dashboard">
         <div class="dashboard-header">
-            <h1>Welcome back, <span id="dashboardUserName">John</span>!</h1>
-            <p>Manage your CVs, view payment history, and create new resumes</p>
+            <h1><span data-translate="welcomeBack">Welcome back</span>, <span id="dashboardUserName">John</span>!</h1>
+            <p data-translate="dashboardSubtitle">Manage your CVs, view payment history, and create new resumes</p>
         </div>
         <div class="dashboard-content">
             <div class="dashboard-grid">
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-file-alt"></i> My CVs</h3>
+                    <h3><i class="fas fa-file-alt"></i> <span data-translate="myCVs">My CVs</span></h3>
                     <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                         <button onclick="showCVBuilder()" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-                            <i class="fas fa-plus"></i> Create New CV
+                            <i class="fas fa-plus"></i> <span data-translate="createNewCV">Create New CV</span>
                         </button>
                         <button onclick="toggleHistory()" id="historyToggleBtn" style="padding: 8px 16px; background: none; color: #3498db; border: 2px solid #3498db; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">
-                            <i class="fas fa-eye"></i> Show History
+                            <i class="fas fa-eye"></i> <span data-translate="showHistory">Show History</span>
                         </button>
                         <button onclick="clearHistory()" title="Clear all history" style="padding: 8px 12px; background: none; color: #e74c3c; border: none; border-radius: 8px; cursor: pointer; font-size: 0.8rem; transition: all 0.3s ease;">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
                     <div id="combinedHistory" style="display: none;">
-                        <p style="text-align: center; color: #666; padding: 15px; font-size: 0.9rem;">No activity yet. Create your first CV to see history here!</p>
+                        <p style="text-align: center; color: #666; padding: 15px; font-size: 0.9rem;" data-translate="noActivity">No activity yet. Create your first CV to see history here!</p>
                     </div>
                 </div>
 
 
 
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-chart-line"></i> Account Stats</h3>
+                    <h3><i class="fas fa-chart-line"></i> <span data-translate="accountStats">Account Stats</span></h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center;">
                         <div>
                             <div style="font-size: 2rem; font-weight: 700; color: #3498db;" id="userCVCount">0</div>
-                            <div style="font-size: 0.9rem; color: #666;">CVs Created</div>
+                            <div style="font-size: 0.9rem; color: #666;" data-translate="cvsCreated">CVs Created</div>
                         </div>
                         <div>
                             <div style="font-size: 2rem; font-weight: 700; color: #27ae60;" id="userTotalSpent">$0.00</div>
-                            <div style="font-size: 0.9rem; color: #666;">Total Spent</div>
+                            <div style="font-size: 0.9rem; color: #666;" data-translate="totalSpent">Total Spent</div>
                         </div>
                         <div>
                             <div style="font-size: 2rem; font-weight: 700; color: #e74c3c;" id="userDaysActive">1</div>
-                            <div style="font-size: 0.9rem; color: #666;">Days Active</div>
+                            <div style="font-size: 0.9rem; color: #666;" data-translate="daysActive">Days Active</div>
                         </div>
                         <div>
                             <div style="font-size: 2rem; font-weight: 700; color: #f39c12;">9</div>
-                            <div style="font-size: 0.9rem; color: #666;">Templates</div>
+                            <div style="font-size: 0.9rem; color: #666;" data-translate="templates">Templates</div>
                         </div>
                     </div>
                 </div>
@@ -2033,8 +2044,8 @@
     <div class="container" id="cvBuilder">
         <div class="header">
             <div class="header-content">
-                <h1>CVCraft Pro</h1>
-                <p>Create stunning, professional CVs in minutes with our advanced builder</p>
+                <h1 data-translate="mainTitle">CVCraft Pro</h1>
+                <p data-translate="mainSubtitle">Create stunning, professional CVs in minutes with our advanced builder</p>
 
             </div>
         </div>
@@ -2058,54 +2069,54 @@
 
                 <form id="cvForm">
                     <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="Enter your full name">
+                        <label for="fullName" data-translate="fullName">Full Name</label>
+                        <input type="text" id="fullName" data-translate-placeholder="fullNamePlaceholder" placeholder="Enter your full name">
                     </div>
 
                     <div class="form-group">
-                        <label for="contact">Contact Information</label>
-                        <textarea id="contact" placeholder="Email: your.email@example.com&#10;Phone: +1 (555) 123-4567&#10;LinkedIn: linkedin.com/in/yourname&#10;Website: yourwebsite.com" style="min-height: 80px;"></textarea>
+                        <label for="contact" data-translate="contactInfo">Contact Information</label>
+                        <textarea id="contact" data-translate-placeholder="contactPlaceholder" placeholder="Email: your.email@example.com&#10;Phone: +1 (555) 123-4567&#10;LinkedIn: linkedin.com/in/yourname&#10;Website: yourwebsite.com" style="min-height: 80px;"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="headline">Professional Headline</label>
-                        <input type="text" id="headline" placeholder="Senior Software Developer | Full-Stack Engineer | Tech Enthusiast">
+                        <label for="headline" data-translate="professionalHeadline">Professional Headline</label>
+                        <input type="text" id="headline" data-translate-placeholder="headlinePlaceholder" placeholder="Senior Software Developer | Full-Stack Engineer | Tech Enthusiast">
                     </div>
 
                     <div class="form-group">
-                        <label for="photo">Profile Photo</label>
+                        <label for="photo" data-translate="profilePhoto">Profile Photo</label>
                         <input type="file" id="photo" accept="image/*" style="padding: 8px;">
                         <div id="photoPreview" style="margin-top: 10px; text-align: center;"></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="education">Education</label>
-                        <textarea id="education" placeholder="Bachelor of Science in Computer Science&#10;University of Technology, 2020-2024"></textarea>
+                        <label for="education" data-translate="education">Education</label>
+                        <textarea id="education" data-translate-placeholder="educationPlaceholder" placeholder="Bachelor of Science in Computer Science&#10;University of Technology, 2020-2024"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="skills">Skills</label>
-                        <textarea id="skills" placeholder="JavaScript, Python, React, Node.js&#10;Project Management, Team Leadership"></textarea>
+                        <label for="skills" data-translate="skills">Skills</label>
+                        <textarea id="skills" data-translate-placeholder="skillsPlaceholder" placeholder="JavaScript, Python, React, Node.js&#10;Project Management, Team Leadership"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="experience">Work Experience</label>
-                        <textarea id="experience" placeholder="Software Developer | Tech Company (2022-Present)&#10;• Developed web applications using React and Node.js&#10;• Collaborated with cross-functional teams"></textarea>
+                        <label for="experience" data-translate="workExperience">Work Experience</label>
+                        <textarea id="experience" data-translate-placeholder="experiencePlaceholder" placeholder="Software Developer | Tech Company (2022-Present)&#10;• Developed web applications using React and Node.js&#10;• Collaborated with cross-functional teams"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="languages">Languages (Optional)</label>
-                        <textarea id="languages" placeholder="English - Native&#10;Spanish - Fluent&#10;French - Intermediate"></textarea>
+                        <label for="languages" data-translate="languagesOptional">Languages (Optional)</label>
+                        <textarea id="languages" data-translate-placeholder="languagesPlaceholder" placeholder="English - Native&#10;Spanish - Fluent&#10;French - Intermediate"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="certificates">Certificates & Awards (Optional)</label>
-                        <textarea id="certificates" placeholder="AWS Certified Solutions Architect (2023)&#10;Google Analytics Certified (2022)&#10;Best Employee Award - Tech Corp (2021)"></textarea>
+                        <label for="certificates" data-translate="certificatesAwards">Certificates & Awards (Optional)</label>
+                        <textarea id="certificates" data-translate-placeholder="certificatesPlaceholder" placeholder="AWS Certified Solutions Architect (2023)&#10;Google Analytics Certified (2022)&#10;Best Employee Award - Tech Corp (2021)"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="hobbies">Hobbies & Interests (Optional)</label>
-                        <textarea id="hobbies" placeholder="Photography, Hiking, Reading&#10;Volunteer work at local animal shelter&#10;Playing guitar and composing music"></textarea>
+                        <label for="hobbies" data-translate="hobbiesInterests">Hobbies & Interests (Optional)</label>
+                        <textarea id="hobbies" data-translate-placeholder="hobbiesPlaceholder" placeholder="Photography, Hiking, Reading&#10;Volunteer work at local animal shelter&#10;Playing guitar and composing music"></textarea>
                     </div>
 
                     <div class="payment-section">
@@ -3392,10 +3403,17 @@
         });
 
         // Navigation functions
-        function showHome() {
+        // Helper function to hide all pages
+        function hideAllPages() {
             document.getElementById('dashboard').classList.remove('active');
             document.getElementById('cvBuilder').classList.remove('active');
             document.getElementById('featuresPage').style.display = 'none';
+            document.getElementById('profilePage').style.display = 'none';
+            document.getElementById('settingsPage').style.display = 'none';
+        }
+
+        function showHome() {
+            hideAllPages();
             // In a real app, this would show a home page
             if (currentUser) {
                 showDashboard();
@@ -3405,40 +3423,29 @@
         }
 
         function showDashboard() {
+            hideAllPages();
             document.getElementById('dashboard').classList.add('active');
-            document.getElementById('cvBuilder').classList.remove('active');
-            document.getElementById('featuresPage').style.display = 'none';
             loadUserData();
         }
 
         function showCVBuilder() {
-            document.getElementById('dashboard').classList.remove('active');
+            hideAllPages();
             document.getElementById('cvBuilder').classList.add('active');
-            document.getElementById('featuresPage').style.display = 'none';
         }
 
         function showFeatures() {
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('cvBuilder').classList.remove('active');
+            hideAllPages();
             document.getElementById('featuresPage').style.display = 'block';
-            document.getElementById('profilePage').style.display = 'none';
-            document.getElementById('settingsPage').style.display = 'none';
         }
 
         function showProfile() {
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('cvBuilder').classList.remove('active');
-            document.getElementById('featuresPage').style.display = 'none';
-            document.getElementById('settingsPage').style.display = 'none';
+            hideAllPages();
             document.getElementById('profilePage').style.display = 'block';
             loadProfileData();
         }
 
         function showSettings() {
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('cvBuilder').classList.remove('active');
-            document.getElementById('featuresPage').style.display = 'none';
-            document.getElementById('profilePage').style.display = 'none';
+            hideAllPages();
             document.getElementById('settingsPage').style.display = 'block';
             loadSettingsData();
         }
@@ -4695,10 +4702,651 @@
             showNotification('Facebook signup integration coming soon! Please use email signup for now.', 'info');
         }
 
+        // Translation System
+        let currentLanguage = 'en';
+        
+        const translations = {
+            en: {
+                // Navigation
+                home: 'Home',
+                features: 'Features',
+                login: 'Login',
+                signup: 'Sign Up',
+                dashboard: 'Dashboard',
+                profile: 'Profile',
+                settings: 'Settings',
+                logout: 'Logout',
+                
+                // Main header
+                mainTitle: 'CVCraft Pro',
+                mainSubtitle: 'Create stunning, professional CVs in minutes with our advanced builder',
+                
+                // Dashboard
+                welcomeBack: 'Welcome back',
+                dashboardSubtitle: 'Manage your CVs, view payment history, and create new resumes',
+                myCVs: 'My CVs',
+                createNewCV: 'Create New CV',
+                showHistory: 'Show History',
+                hideHistory: 'Hide History',
+                accountStats: 'Account Stats',
+                cvsCreated: 'CVs Created',
+                totalSpent: 'Total Spent',
+                daysActive: 'Days Active',
+                templates: 'Templates',
+                noActivity: 'No activity yet. Create your first CV to see history here!',
+                
+                // Auth Modal
+                welcomeTitle: 'Welcome to CVCraft Pro',
+                welcomeSubtitle: 'Create professional CVs in minutes',
+                welcomeBack2: 'Welcome Back!',
+                signInSubtitle: 'Sign in to access your dashboard',
+                joinTitle: 'Join CVCraft Pro',
+                createAccountSubtitle: 'Create your account in seconds',
+                resetPasswordTitle: 'Reset Password',
+                resetPasswordSubtitle: 'Enter your email to receive reset instructions',
+                emailAddress: 'Email Address',
+                password: 'Password',
+                forgotPassword: 'Forgot Password?',
+                loginToAccount: 'Login to Account',
+                orContinueWith: 'or continue with',
+                google: 'Google',
+                facebook: 'Facebook',
+                fullNameAuth: 'Full Name',
+                createPassword: 'Create a password (min 8 characters)',
+                confirmPassword: 'Confirm Password',
+                agreeTerms: 'I agree to the Terms of Service and Privacy Policy',
+                createAccount: 'Create Account',
+                orSignUpWith: 'or sign up with',
+                sendResetLink: 'Send Reset Link',
+                backToLogin: 'Back to Login',
+                resetLinkSent: 'We\'ll send you a link to reset your password.',
+                
+                // Features Page
+                powerfulFeatures: 'Powerful Features',
+                featuresSubtitle: 'Everything you need to create professional CVs that get you hired',
+                professionalTemplates: '9 Professional Templates',
+                templatesDesc: 'Choose from 9 expertly designed templates including ATS-optimized formats. Each template is crafted by professional designers to help you stand out and get past applicant tracking systems.',
+                classicTemplate: 'Classic - Traditional and timeless',
+                modernTemplate: 'Modern - Two-column layout',
+                creativeTemplate: 'Creative - Colorful and unique',
+                professionalTemplate: 'Professional - Corporate style',
+                premiumTemplate: 'Premium - Sophisticated and elegant',
+                executiveTemplate: 'Executive - Premium luxury design',
+                traditionalTemplate: 'Traditional - Classic and formal',
+                linkedinTemplate: 'LinkedIn - Professional social style',
+                atsTemplate: 'ATS Optimized - Beats tracking systems',
+                realTimeLivePreview: 'Real-Time Live Preview',
+                livePreviewDesc: 'See your CV update instantly as you type. No waiting, no guessing - what you see is exactly what you get in your final PDF.',
+                instantUpdates: 'Instant updates as you type',
+                switchTemplates: 'Switch templates in real-time',
+                photoPreview: 'Photo preview integration',
+                perfectFormatting: 'Perfect formatting guaranteed',
+                secureUserAccounts: 'Secure User Accounts',
+                userAccountsDesc: 'Create your personal account to track your CVs, payment history, and access your documents anytime, anywhere.',
+                secureLogin: 'Secure login & registration',
+                passwordReset: 'Password reset functionality',
+                sessionManagement: '7-day session management',
+                personalDashboard: 'Personal dashboard',
+                securePaymentProcessing: 'Secure Payment Processing',
+                paymentDesc: 'Simple, transparent pricing at just $1 per CV. Secure payment processing with complete transaction history tracking.',
+                onePrice: '$1.00 per CV - No hidden fees',
+                encryptedPayment: 'Encrypted payment processing',
+                paymentHistory: 'Complete payment history',
+                instantReceipt: 'Instant receipt generation',
+                highQualityPDF: 'High-Quality PDF Export',
+                pdfDesc: 'Generate professional PDF files that maintain perfect formatting, high-resolution images, and are ready for printing or digital sharing.',
+                highResolution: 'High-resolution PDF output',
+                formatPreservation: 'Perfect formatting preservation',
+                printReady: 'Print-ready quality',
+                instantDownload: 'Instant download',
+                personalDashboard2: 'Personal Dashboard',
+                dashboardDesc: 'Access your personal dashboard to manage all your CVs, view payment history, and track your account statistics in one place.',
+                cvManagement: 'CV history & management',
+                transactionHistory: 'Payment transaction history',
+                accountStatistics: 'Account statistics',
+                quickRedownload: 'Quick CV re-download',
+                additionalFeatures: 'Additional Features',
+                mobileResponsive: 'Mobile Responsive',
+                mobileDesc: 'Works perfectly on all devices - desktop, tablet, and mobile',
+                darkMode: 'Dark Mode',
+                darkModeDesc: 'Toggle between light and dark themes for comfortable viewing',
+                aiAssistant: 'AI Assistant',
+                aiDesc: 'Built-in chatbot to help with CV writing tips and questions',
+                photoUpload: 'Photo Upload',
+                photoDesc: 'Add professional photos with automatic resizing and positioning',
+                privacySecurityFirst: 'Privacy & Security First',
+                dataEncryption: 'Data Encryption',
+                encryptionDesc: 'All data is encrypted using industry-standard protocols',
+                autoDelete: 'Auto-Delete',
+                autoDeleteDesc: 'Uploaded photos and data are automatically deleted after PDF generation',
+                noDataSharing: 'No Data Sharing',
+                noSharingDesc: 'Your personal information is never shared with third parties',
+                
+                // Profile Page
+                personalInformation: 'Personal Information',
+                firstName: 'First Name',
+                lastName: 'Last Name',
+                saveChanges: 'Save Changes',
+                cancel: 'Cancel',
+                memberSince: 'Member since',
+                lastLogin: 'Last Login',
+                today: 'Today',
+                
+                // Settings Page
+                settingsTitle: 'Settings',
+                settingsSubtitle: 'Customize your CVCraft Pro experience',
+                generalSettings: 'General Settings',
+                darkModeSettings: 'Dark Mode',
+                darkModeSettingsDesc: 'Switch between light and dark themes',
+                language: 'Language',
+                languageDesc: 'Choose your preferred language',
+                changePassword: 'Change Password',
+                currentPassword: 'Current Password',
+                newPassword: 'New Password',
+                confirmNewPassword: 'Confirm New Password',
+                updatePassword: 'Update Password',
+                accountManagement: 'Account Management',
+                clearAllData: 'Clear All Data',
+                clearDataDesc: 'Remove all your CVs and personal information',
+                clearData: 'Clear Data',
+                deleteAccount: 'Delete Account',
+                deleteAccountDesc: 'Permanently delete your account and all data',
+                saveAllSettings: 'Save All Settings',
+                
+                // Form labels
+                fullName: 'Full Name',
+                contactInfo: 'Contact Information',
+                professionalHeadline: 'Professional Headline',
+                profilePhoto: 'Profile Photo',
+                education: 'Education',
+                skills: 'Skills',
+                workExperience: 'Work Experience',
+                languagesOptional: 'Languages (Optional)',
+                certificatesAwards: 'Certificates & Awards (Optional)',
+                hobbiesInterests: 'Hobbies & Interests (Optional)',
+                
+                // Placeholders
+                fullNamePlaceholder: 'Enter your full name',
+                contactPlaceholder: 'Email: your.email@example.com\nPhone: +1 (555) 123-4567\nLinkedIn: linkedin.com/in/yourname\nWebsite: yourwebsite.com',
+                headlinePlaceholder: 'Senior Software Developer | Full-Stack Engineer | Tech Enthusiast',
+                educationPlaceholder: 'Bachelor of Science in Computer Science\nUniversity of Technology, 2020-2024',
+                skillsPlaceholder: 'JavaScript, Python, React, Node.js\nProject Management, Team Leadership',
+                experiencePlaceholder: 'Software Developer | Tech Company (2022-Present)\n• Developed web applications using React and Node.js\n• Collaborated with cross-functional teams',
+                languagesPlaceholder: 'English - Native\nSpanish - Fluent\nFrench - Intermediate',
+                certificatesPlaceholder: 'AWS Certified Solutions Architect (2023)\nGoogle Analytics Certified (2022)\nBest Employee Award - Tech Corp (2021)',
+                hobbiesPlaceholder: 'Photography, Hiking, Reading\nVolunteer work at local animal shelter\nPlaying guitar and composing music',
+                
+                // Template buttons
+                chooseTemplate: 'Choose Template:',
+                
+                // Payment section
+                paymentTitle: 'Generate Professional CV - $1.00',
+                paymentDesc: 'One-time payment • Instant download • Professional quality',
+                cardNumber: 'Card Number',
+                expiry: 'Expiry',
+                cvv: 'CVV',
+                payButton: '💳 Pay $1.00 & Download CV',
+                paymentSuccess: '✅ Payment Successful!',
+                downloadButton: '📄 Download Your CV Now',
+                
+                // Preview section
+                livePreview: 'Live Preview',
+                overflowWarning: 'Content Overflow Warning!',
+                
+                // CV Preview default text
+                yourName: 'Your Name',
+                professionalHeadlineDefault: 'Professional Headline',
+                contactDefault: 'Email: your.email@example.com\nPhone: +1 (555) 123-4567\nLinkedIn: linkedin.com/in/yourname',
+                educationDefault: 'Your education details will appear here',
+                skillsDefault: 'Your skills will appear here',
+                experienceDefault: 'Your work experience will appear here',
+                
+                // Footer information
+                importantInformation: 'Important Information',
+                privacyDataProtection: '🔒 Privacy & Data Protection',
+                privacyText: '• Your personal information is processed securely and never shared with third parties\n• All uploaded photos and data are automatically deleted after PDF generation\n• We use industry-standard encryption for all payment transactions',
+                paymentPolicy: '💳 Payment Policy',
+                paymentPolicyText: '• One-time payment of $1.00 allows generation of ONE CV only\n• Please ensure all information is correct before payment\n• No refunds after successful PDF generation\n• Payment is processed securely through encrypted channels',
+                importantNotice: '⚠️ Important Notice',
+                noticeText: 'Please double-check all your information before making payment. Each $1.00 payment allows you to generate only ONE CV. Make sure your details are complete and accurate as you cannot generate another CV with the same payment.',
+                needHelp: '📧 Need Help?',
+                helpText: 'For any issues, questions, or technical support:',
+                responseTime: 'We typically respond within 24 hours',
+                
+                // Chatbot
+                cvAssistant: 'CV Assistant',
+                chatPlaceholder: 'Type your message...',
+                
+                // Notifications
+                loginSuccessful: 'Welcome back! Login successful.',
+                accountCreated: 'Account created successfully! Welcome to CVCraft Pro.',
+                logoutSuccessful: 'Logged out successfully!',
+                profileUpdated: 'Profile updated successfully!',
+                passwordUpdated: 'Password updated successfully!',
+                settingsSaved: 'Settings saved successfully!',
+                paymentSuccessful: 'Payment successful! You can now download your CV.',
+                cvDownloaded: 'CV downloaded successfully!',
+                historyCleared: 'History cleared successfully!',
+                languageChanged: 'Language changed to English'
+            },
+            es: {
+                // Navigation
+                home: 'Inicio',
+                features: 'Características',
+                login: 'Iniciar Sesión',
+                signup: 'Registrarse',
+                dashboard: 'Panel de Control',
+                profile: 'Perfil',
+                settings: 'Configuración',
+                logout: 'Cerrar Sesión',
+                
+                // Main header
+                mainTitle: 'CVCraft Pro',
+                mainSubtitle: 'Crea CVs profesionales y sorprendentes en minutos con nuestro constructor avanzado',
+                
+                // Dashboard
+                welcomeBack: 'Bienvenido de vuelta',
+                dashboardSubtitle: 'Gestiona tus CVs, ve el historial de pagos y crea nuevos currículums',
+                myCVs: 'Mis CVs',
+                createNewCV: 'Crear Nuevo CV',
+                showHistory: 'Mostrar Historial',
+                hideHistory: 'Ocultar Historial',
+                accountStats: 'Estadísticas de Cuenta',
+                cvsCreated: 'CVs Creados',
+                totalSpent: 'Total Gastado',
+                daysActive: 'Días Activo',
+                templates: 'Plantillas',
+                noActivity: '¡Aún no hay actividad. Crea tu primer CV para ver el historial aquí!',
+                
+                // Auth Modal
+                welcomeTitle: 'Bienvenido a CVCraft Pro',
+                welcomeSubtitle: 'Crea CVs profesionales en minutos',
+                welcomeBack2: '¡Bienvenido de Vuelta!',
+                signInSubtitle: 'Inicia sesión para acceder a tu panel de control',
+                joinTitle: 'Únete a CVCraft Pro',
+                createAccountSubtitle: 'Crea tu cuenta en segundos',
+                resetPasswordTitle: 'Restablecer Contraseña',
+                resetPasswordSubtitle: 'Ingresa tu email para recibir instrucciones de restablecimiento',
+                emailAddress: 'Dirección de Email',
+                password: 'Contraseña',
+                forgotPassword: '¿Olvidaste tu contraseña?',
+                loginToAccount: 'Iniciar Sesión en la Cuenta',
+                orContinueWith: 'o continúa con',
+                google: 'Google',
+                facebook: 'Facebook',
+                fullNameAuth: 'Nombre Completo',
+                createPassword: 'Crea una contraseña (mín 8 caracteres)',
+                confirmPassword: 'Confirmar Contraseña',
+                agreeTerms: 'Acepto los Términos de Servicio y la Política de Privacidad',
+                createAccount: 'Crear Cuenta',
+                orSignUpWith: 'o regístrate con',
+                sendResetLink: 'Enviar Enlace de Restablecimiento',
+                backToLogin: 'Volver al Inicio de Sesión',
+                resetLinkSent: 'Te enviaremos un enlace para restablecer tu contraseña.',
+                
+                // Features Page
+                powerfulFeatures: 'Características Poderosas',
+                featuresSubtitle: 'Todo lo que necesitas para crear CVs profesionales que te consigan trabajo',
+                professionalTemplates: '9 Plantillas Profesionales',
+                templatesDesc: 'Elige entre 9 plantillas diseñadas por expertos, incluyendo formatos optimizados para ATS. Cada plantilla está creada por diseñadores profesionales para ayudarte a destacar y superar los sistemas de seguimiento de candidatos.',
+                classicTemplate: 'Clásico - Tradicional y atemporal',
+                modernTemplate: 'Moderno - Diseño de dos columnas',
+                creativeTemplate: 'Creativo - Colorido y único',
+                professionalTemplate: 'Profesional - Estilo corporativo',
+                premiumTemplate: 'Premium - Sofisticado y elegante',
+                executiveTemplate: 'Ejecutivo - Diseño de lujo premium',
+                traditionalTemplate: 'Tradicional - Clásico y formal',
+                linkedinTemplate: 'LinkedIn - Estilo social profesional',
+                atsTemplate: 'Optimizado ATS - Supera sistemas de seguimiento',
+                realTimeLivePreview: 'Vista Previa en Tiempo Real',
+                livePreviewDesc: 'Ve tu CV actualizarse instantáneamente mientras escribes. Sin esperas, sin conjeturas: lo que ves es exactamente lo que obtienes en tu PDF final.',
+                instantUpdates: 'Actualizaciones instantáneas mientras escribes',
+                switchTemplates: 'Cambiar plantillas en tiempo real',
+                photoPreview: 'Integración de vista previa de foto',
+                perfectFormatting: 'Formato perfecto garantizado',
+                secureUserAccounts: 'Cuentas de Usuario Seguras',
+                userAccountsDesc: 'Crea tu cuenta personal para rastrear tus CVs, historial de pagos y acceder a tus documentos en cualquier momento y lugar.',
+                secureLogin: 'Inicio de sesión y registro seguros',
+                passwordReset: 'Funcionalidad de restablecimiento de contraseña',
+                sessionManagement: 'Gestión de sesiones de 7 días',
+                personalDashboard: 'Panel de control personal',
+                securePaymentProcessing: 'Procesamiento de Pagos Seguro',
+                paymentDesc: 'Precios simples y transparentes a solo $1 por CV. Procesamiento de pagos seguro con seguimiento completo del historial de transacciones.',
+                onePrice: '$1.00 por CV - Sin tarifas ocultas',
+                encryptedPayment: 'Procesamiento de pagos encriptado',
+                paymentHistory: 'Historial completo de pagos',
+                instantReceipt: 'Generación instantánea de recibos',
+                highQualityPDF: 'Exportación PDF de Alta Calidad',
+                pdfDesc: 'Genera archivos PDF profesionales que mantienen el formato perfecto, imágenes de alta resolución y están listos para imprimir o compartir digitalmente.',
+                highResolution: 'Salida PDF de alta resolución',
+                formatPreservation: 'Preservación perfecta del formato',
+                printReady: 'Calidad lista para imprimir',
+                instantDownload: 'Descarga instantánea',
+                personalDashboard2: 'Panel de Control Personal',
+                dashboardDesc: 'Accede a tu panel de control personal para gestionar todos tus CVs, ver el historial de pagos y rastrear las estadísticas de tu cuenta en un solo lugar.',
+                cvManagement: 'Historial y gestión de CVs',
+                transactionHistory: 'Historial de transacciones de pago',
+                accountStatistics: 'Estadísticas de cuenta',
+                quickRedownload: 'Re-descarga rápida de CV',
+                additionalFeatures: 'Características Adicionales',
+                mobileResponsive: 'Responsivo Móvil',
+                mobileDesc: 'Funciona perfectamente en todos los dispositivos: escritorio, tablet y móvil',
+                darkMode: 'Modo Oscuro',
+                darkModeDesc: 'Alterna entre temas claro y oscuro para una visualización cómoda',
+                aiAssistant: 'Asistente IA',
+                aiDesc: 'Chatbot integrado para ayudar con consejos de escritura de CV y preguntas',
+                photoUpload: 'Subida de Fotos',
+                photoDesc: 'Añade fotos profesionales con redimensionamiento automático y posicionamiento',
+                privacySecurityFirst: 'Privacidad y Seguridad Primero',
+                dataEncryption: 'Encriptación de Datos',
+                encryptionDesc: 'Todos los datos están encriptados usando protocolos estándar de la industria',
+                autoDelete: 'Auto-Eliminación',
+                autoDeleteDesc: 'Las fotos subidas y los datos se eliminan automáticamente después de la generación del PDF',
+                noDataSharing: 'Sin Compartir Datos',
+                noSharingDesc: 'Tu información personal nunca se comparte con terceros',
+                
+                // Profile Page
+                personalInformation: 'Información Personal',
+                firstName: 'Nombre',
+                lastName: 'Apellido',
+                saveChanges: 'Guardar Cambios',
+                cancel: 'Cancelar',
+                memberSince: 'Miembro desde',
+                lastLogin: 'Último Acceso',
+                today: 'Hoy',
+                
+                // Settings Page
+                settingsTitle: 'Configuración',
+                settingsSubtitle: 'Personaliza tu experiencia con CVCraft Pro',
+                generalSettings: 'Configuración General',
+                darkModeSettings: 'Modo Oscuro',
+                darkModeSettingsDesc: 'Cambiar entre temas claro y oscuro',
+                language: 'Idioma',
+                languageDesc: 'Elige tu idioma preferido',
+                changePassword: 'Cambiar Contraseña',
+                currentPassword: 'Contraseña Actual',
+                newPassword: 'Nueva Contraseña',
+                confirmNewPassword: 'Confirmar Nueva Contraseña',
+                updatePassword: 'Actualizar Contraseña',
+                accountManagement: 'Gestión de Cuenta',
+                clearAllData: 'Limpiar Todos los Datos',
+                clearDataDesc: 'Eliminar todos tus CVs e información personal',
+                clearData: 'Limpiar Datos',
+                deleteAccount: 'Eliminar Cuenta',
+                deleteAccountDesc: 'Eliminar permanentemente tu cuenta y todos los datos',
+                saveAllSettings: 'Guardar Toda la Configuración',
+                
+                // Form labels
+                fullName: 'Nombre Completo',
+                contactInfo: 'Información de Contacto',
+                professionalHeadline: 'Título Profesional',
+                profilePhoto: 'Foto de Perfil',
+                education: 'Educación',
+                skills: 'Habilidades',
+                workExperience: 'Experiencia Laboral',
+                languagesOptional: 'Idiomas (Opcional)',
+                certificatesAwards: 'Certificados y Premios (Opcional)',
+                hobbiesInterests: 'Pasatiempos e Intereses (Opcional)',
+                
+                // Placeholders
+                fullNamePlaceholder: 'Ingresa tu nombre completo',
+                contactPlaceholder: 'Email: tu.email@ejemplo.com\nTeléfono: +1 (555) 123-4567\nLinkedIn: linkedin.com/in/tunombre\nSitio web: tusitio.com',
+                headlinePlaceholder: 'Desarrollador de Software Senior | Ingeniero Full-Stack | Entusiasta de la Tecnología',
+                educationPlaceholder: 'Licenciatura en Ciencias de la Computación\nUniversidad de Tecnología, 2020-2024',
+                skillsPlaceholder: 'JavaScript, Python, React, Node.js\nGestión de Proyectos, Liderazgo de Equipos',
+                experiencePlaceholder: 'Desarrollador de Software | Empresa Tecnológica (2022-Presente)\n• Desarrollé aplicaciones web usando React y Node.js\n• Colaboré con equipos multifuncionales',
+                languagesPlaceholder: 'Inglés - Nativo\nEspañol - Fluido\nFrancés - Intermedio',
+                certificatesPlaceholder: 'AWS Certified Solutions Architect (2023)\nGoogle Analytics Certified (2022)\nPremio Mejor Empleado - Tech Corp (2021)',
+                hobbiesPlaceholder: 'Fotografía, Senderismo, Lectura\nTrabajo voluntario en refugio de animales\nTocar guitarra y componer música',
+                
+                // Template buttons
+                chooseTemplate: 'Elegir Plantilla:',
+                
+                // Payment section
+                paymentTitle: 'Generar CV Profesional - $1.00',
+                paymentDesc: 'Pago único • Descarga instantánea • Calidad profesional',
+                cardNumber: 'Número de Tarjeta',
+                expiry: 'Vencimiento',
+                cvv: 'CVV',
+                payButton: '💳 Pagar $1.00 y Descargar CV',
+                paymentSuccess: '✅ ¡Pago Exitoso!',
+                downloadButton: '📄 Descargar tu CV Ahora',
+                
+                // Preview section
+                livePreview: 'Vista Previa en Vivo',
+                overflowWarning: '¡Advertencia de Desbordamiento de Contenido!',
+                
+                // CV Preview default text
+                yourName: 'Tu Nombre',
+                professionalHeadlineDefault: 'Título Profesional',
+                contactDefault: 'Email: tu.email@ejemplo.com\nTeléfono: +1 (555) 123-4567\nLinkedIn: linkedin.com/in/tunombre',
+                educationDefault: 'Los detalles de tu educación aparecerán aquí',
+                skillsDefault: 'Tus habilidades aparecerán aquí',
+                experienceDefault: 'Tu experiencia laboral aparecerá aquí',
+                
+                // Footer information
+                importantInformation: 'Información Importante',
+                privacyDataProtection: '🔒 Privacidad y Protección de Datos',
+                privacyText: '• Tu información personal se procesa de forma segura y nunca se comparte con terceros\n• Todas las fotos subidas y datos se eliminan automáticamente después de la generación del PDF\n• Usamos encriptación estándar de la industria para todas las transacciones de pago',
+                paymentPolicy: '💳 Política de Pagos',
+                paymentPolicyText: '• Un pago único de $1.00 permite la generación de UN CV solamente\n• Por favor asegúrate de que toda la información sea correcta antes del pago\n• No hay reembolsos después de la generación exitosa del PDF\n• El pago se procesa de forma segura a través de canales encriptados',
+                importantNotice: '⚠️ Aviso Importante',
+                noticeText: 'Por favor verifica toda tu información antes de realizar el pago. Cada pago de $1.00 te permite generar solo UN CV. Asegúrate de que tus detalles estén completos y sean precisos ya que no puedes generar otro CV con el mismo pago.',
+                needHelp: '📧 ¿Necesitas Ayuda?',
+                helpText: 'Para cualquier problema, pregunta o soporte técnico:',
+                responseTime: 'Típicamente respondemos dentro de 24 horas',
+                
+                // Chatbot
+                cvAssistant: 'Asistente de CV',
+                chatPlaceholder: 'Escribe tu mensaje...',
+                
+                // Notifications
+                loginSuccessful: '¡Bienvenido de vuelta! Inicio de sesión exitoso.',
+                accountCreated: '¡Cuenta creada exitosamente! Bienvenido a CVCraft Pro.',
+                logoutSuccessful: '¡Sesión cerrada exitosamente!',
+                profileUpdated: '¡Perfil actualizado exitosamente!',
+                passwordUpdated: '¡Contraseña actualizada exitosamente!',
+                settingsSaved: '¡Configuración guardada exitosamente!',
+                paymentSuccessful: '¡Pago exitoso! Ahora puedes descargar tu CV.',
+                cvDownloaded: '¡CV descargado exitosamente!',
+                historyCleared: '¡Historial limpiado exitosamente!',
+                languageChanged: 'Idioma cambiado a Español'
+            }
+        };
+
+        function changeLanguage() {
+            const selectedLanguage = document.getElementById('languageSelect').value;
+            currentLanguage = selectedLanguage;
+            
+            // Save language preference
+            localStorage.setItem('cvcraft_language', selectedLanguage);
+            
+            // Apply translations
+            applyTranslations();
+            
+            // Update preview with new language
+            updatePreview();
+            
+            showNotification(
+                selectedLanguage === 'es' ? 'Idioma cambiado a Español' : 'Language changed to English', 
+                'success'
+            );
+        }
+
+        function applyTranslations() {
+            const lang = translations[currentLanguage];
+            
+            // Translate elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (lang[key]) {
+                    element.textContent = lang[key];
+                }
+            });
+            
+            // Translate placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (lang[key]) {
+                    element.placeholder = lang[key];
+                }
+            });
+            
+            // Update specific elements that need special handling
+            updateSpecialTranslations();
+        }
+
+        function updateSpecialTranslations() {
+            const lang = translations[currentLanguage];
+            
+            // Update template selector label
+            const templateLabel = document.querySelector('.template-selector label');
+            if (templateLabel && lang.chooseTemplate) {
+                templateLabel.textContent = lang.chooseTemplate;
+            }
+            
+            // Update payment section
+            const paymentTitle = document.querySelector('.price-info h4');
+            if (paymentTitle && lang.paymentTitle) {
+                paymentTitle.textContent = '💳 ' + lang.paymentTitle;
+            }
+            
+            const paymentDesc = document.querySelector('.price-info p');
+            if (paymentDesc && lang.paymentDesc) {
+                paymentDesc.textContent = lang.paymentDesc;
+            }
+            
+            // Update card form labels
+            const cardLabels = document.querySelectorAll('#paymentForm label');
+            if (cardLabels.length >= 3) {
+                cardLabels[0].textContent = lang.cardNumber;
+                cardLabels[1].textContent = lang.expiry;
+                cardLabels[2].textContent = lang.cvv;
+            }
+            
+            // Update buttons
+            const payBtn = document.getElementById('payBtn');
+            if (payBtn && lang.payButton) {
+                payBtn.textContent = lang.payButton;
+            }
+            
+            const downloadBtn = document.querySelector('#paymentSuccess .download-btn');
+            if (downloadBtn && lang.downloadButton) {
+                downloadBtn.textContent = lang.downloadButton;
+            }
+            
+            // Update preview section title
+            const previewTitle = document.querySelector('.preview-section h3');
+            if (previewTitle && lang.livePreview) {
+                previewTitle.textContent = lang.livePreview;
+            }
+        }
+
+        function loadLanguage() {
+            const savedLanguage = localStorage.getItem('cvcraft_language') || 'en';
+            currentLanguage = savedLanguage;
+            
+            // Set the select value
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) {
+                languageSelect.value = savedLanguage;
+            }
+            
+            // Apply translations
+            applyTranslations();
+        }
+
+        function updatePreview() {
+            const lang = translations[currentLanguage];
+            
+            const name = inputs.fullName.value || lang.yourName;
+            const contact = inputs.contact.value || lang.contactDefault;
+            const headline = inputs.headline.value || lang.professionalHeadlineDefault;
+            const education = inputs.education.value || lang.educationDefault;
+            const skills = inputs.skills.value || lang.skillsDefault;
+            const experience = inputs.experience.value || lang.experienceDefault;
+            const languages = inputs.languages.value;
+            const certificates = inputs.certificates.value;
+            const hobbies = inputs.hobbies.value;
+
+            // Update main content
+            if (preview.name) preview.name.textContent = name;
+            if (preview.contact) preview.contact.innerHTML = contact.replace(/\n/g, '<br>');
+            if (preview.headline) preview.headline.textContent = headline;
+            if (preview.education) preview.education.innerHTML = education.replace(/\n/g, '<br>');
+            if (preview.skills) preview.skills.innerHTML = skills.replace(/\n/g, '<br>');
+            if (preview.experience) preview.experience.innerHTML = experience.replace(/\n/g, '<br>');
+
+            // Handle optional sections - show only if filled
+            const languagesSection = document.getElementById('languagesSection');
+            const certificatesSection = document.getElementById('certificatesSection');
+            const hobbiesSection = document.getElementById('hobbiesSection');
+
+            if (languages && languages.trim()) {
+                if (preview.languages) preview.languages.innerHTML = languages.replace(/\n/g, '<br>');
+                if (languagesSection) languagesSection.style.display = 'block';
+            } else {
+                if (languagesSection) languagesSection.style.display = 'none';
+            }
+
+            if (certificates && certificates.trim()) {
+                if (preview.certificates) preview.certificates.innerHTML = certificates.replace(/\n/g, '<br>');
+                if (certificatesSection) certificatesSection.style.display = 'block';
+            } else {
+                if (certificatesSection) certificatesSection.style.display = 'none';
+            }
+
+            if (hobbies && hobbies.trim()) {
+                if (preview.hobbies) preview.hobbies.innerHTML = hobbies.replace(/\n/g, '<br>');
+                if (hobbiesSection) hobbiesSection.style.display = 'block';
+            } else {
+                if (hobbiesSection) hobbiesSection.style.display = 'none';
+            }
+
+            // Update photo - ensure it displays properly
+            const photoElement = document.getElementById('previewPhoto');
+            if (photoElement && photoDataUrl) {
+                photoElement.src = photoDataUrl;
+                photoElement.style.display = 'block';
+                photoElement.onload = function() {
+                    console.log('Photo loaded in preview');
+                };
+            } else if (photoElement) {
+                photoElement.style.display = 'none';
+            }
+        }
+
+        function loadSettingsData() {
+            // Load current theme setting
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            document.getElementById('darkModeToggle').checked = isDarkMode;
+            
+            // Update toggle appearance
+            updateToggleAppearance('darkModeToggle', isDarkMode);
+            
+            // Load language setting
+            loadLanguage();
+        }
+
+        function saveSettings() {
+            const settings = {
+                darkMode: document.body.classList.contains('dark-mode'),
+                language: currentLanguage
+            };
+            
+            localStorage.setItem('cvcraft_settings', JSON.stringify(settings));
+            
+            const message = currentLanguage === 'es' ? 
+                '¡Configuración guardada exitosamente!' : 
+                'Settings saved successfully!';
+            showNotification(message, 'success');
+        }
+
         // Initialize everything
         loadTheme();
+        loadLanguage();
         updatePreview();
         checkAuthStatus();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96d9c648800f48ba',t:'MTc1NDkzNjcxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e99f27b0e1da31',t:'MTc1NTEwMjg4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
