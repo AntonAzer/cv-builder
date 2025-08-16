@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js" data-settings-id="a3DQIzZOn3L2xn" async></script>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="d7475e39-114e-4546-b577-2d3570ff4663" type="text/javascript"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-898B8Z3X68"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-898B8Z3X68');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVCraft Pro - Professional CV Builder</title>
+    <meta name="google-adsense-account" content="ca-pub-">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f39c12;stop-opacity:1' /><stop offset='100%25' style='stop-color:%23e67e22;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='60' font-family='Arial,sans-serif' font-size='32' font-weight='900' fill='white' text-anchor='middle'>CV</text></svg>" type="image/svg+xml">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1514,7 +1526,6 @@
             }
         }
     </style>
-    <meta name="google-adsense-account" content="ca-pub-2383951334751724">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -2126,24 +2137,7 @@
                             <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">One-time payment • Instant download • Professional quality</p>
                         </div>
                         
-                        <div id="paymentForm" style="margin-bottom: 20px;">
-                            <div class="form-group" style="margin-bottom: 15px;">
-                                <label style="font-size: 0.9rem;">Card Number</label>
-                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" style="padding: 10px;">
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                                <div class="form-group">
-                                    <label style="font-size: 0.9rem;">Expiry</label>
-                                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" style="padding: 10px;">
-                                </div>
-                                <div class="form-group">
-                                    <label style="font-size: 0.9rem;">CVV</label>
-                                    <input type="text" id="cardCvv" placeholder="123" maxlength="3" style="padding: 10px;">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="download-btn" onclick="processPayment()" id="payBtn">
+                        <button type="button" class="download-btn" onclick="processPayPalPayment()" id="payBtn">
                             💳 Pay $1.00 & Download CV
                         </button>
                         
@@ -2380,65 +2374,123 @@
             }
         }
 
-        // Format card number input
-        document.getElementById('cardNumber').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            e.target.value = formattedValue;
-        });
-
-        // Format expiry input
-        document.getElementById('cardExpiry').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.substring(0,2) + '/' + value.substring(2,4);
-            }
-            e.target.value = value;
-        });
-
-        // Format CVV input
-        document.getElementById('cardCvv').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-
-        function processPayment() {
-            const cardNumber = document.getElementById('cardNumber').value;
-            const cardExpiry = document.getElementById('cardExpiry').value;
-            const cardCvv = document.getElementById('cardCvv').value;
-            
-            // Basic validation
-            if (!cardNumber || cardNumber.replace(/\s/g, '').length < 16) {
-                alert('Please enter a valid card number');
+        function processPayPalPayment() {
+            if (!currentUser) {
+                showNotification('Please login to make a payment.', 'error');
+                showAuthModal('login');
                 return;
             }
             
-            if (!cardExpiry || cardExpiry.length < 5) {
-                alert('Please enter a valid expiry date');
-                return;
-            }
+            // Store CV data before redirecting to PayPal
+            const cvData = {
+                fullName: inputs.fullName.value,
+                contact: inputs.contact.value,
+                headline: inputs.headline.value,
+                education: inputs.education.value,
+                skills: inputs.skills.value,
+                experience: inputs.experience.value,
+                languages: inputs.languages.value,
+                certificates: inputs.certificates.value,
+                hobbies: inputs.hobbies.value,
+                template: currentTemplate,
+                photo: photoDataUrl,
+                timestamp: Date.now()
+            };
             
-            if (!cardCvv || cardCvv.length < 3) {
-                alert('Please enter a valid CVV');
-                return;
-            }
+            // Save CV data to localStorage for retrieval after payment
+            localStorage.setItem('cvcraft_pending_cv', JSON.stringify(cvData));
             
-            const payBtn = document.getElementById('payBtn');
-            const originalText = payBtn.textContent;
-            payBtn.textContent = '💳 Processing Payment...';
-            payBtn.disabled = true;
+            // Redirect to PayPal payment link
+            window.open('https://www.paypal.com/ncp/payment/MBNT9PF7SW9CN', '_blank');
             
-            // Simulate payment processing (replace with real payment gateway)
+            // Show payment processing message
+            showNotification('Redirecting to PayPal for secure payment...', 'info');
+            
+            // Start checking for payment completion
+            startPaymentStatusCheck();
+        }
+        
+        function startPaymentStatusCheck() {
+            // Show a modal or message asking user to confirm payment completion
             setTimeout(() => {
-                // TODO: Replace with actual payment processing
-                // This is temporary - integrate with real payment system later
-                paymentCompleted = true;
+                const paymentCompleted = confirm('Have you completed the PayPal payment? Click OK if payment was successful, or Cancel to try again.');
                 
-                document.getElementById('paymentForm').style.display = 'none';
-                payBtn.style.display = 'none';
-                document.getElementById('paymentSuccess').style.display = 'block';
+                if (paymentCompleted) {
+                    handlePaymentSuccess();
+                } else {
+                    showNotification('Payment not completed. Please try again when ready.', 'info');
+                }
+            }, 3000); // Wait 3 seconds before asking
+        }
+        
+        function handlePaymentSuccess() {
+            // Retrieve CV data
+            const cvData = JSON.parse(localStorage.getItem('cvcraft_pending_cv') || '{}');
+            
+            if (!cvData.fullName) {
+                showNotification('CV data not found. Please recreate your CV.', 'error');
+                return;
+            }
+            
+            // Restore CV data to form
+            inputs.fullName.value = cvData.fullName || '';
+            inputs.contact.value = cvData.contact || '';
+            inputs.headline.value = cvData.headline || '';
+            inputs.education.value = cvData.education || '';
+            inputs.skills.value = cvData.skills || '';
+            inputs.experience.value = cvData.experience || '';
+            inputs.languages.value = cvData.languages || '';
+            inputs.certificates.value = cvData.certificates || '';
+            inputs.hobbies.value = cvData.hobbies || '';
+            
+            if (cvData.photo) {
+                photoDataUrl = cvData.photo;
+                const photoPreview = document.getElementById('photoPreview');
+                photoPreview.innerHTML = `<img src="${photoDataUrl}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db;">`;
+            }
+            
+            if (cvData.template) {
+                currentTemplate = cvData.template;
+                // Update template buttons
+                document.querySelectorAll('.template-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.template === currentTemplate) {
+                        btn.classList.add('active');
+                    }
+                });
+                updateTemplate();
+            }
+            
+            // Update preview
+            updatePreview();
+            
+            // Mark payment as completed
+            paymentCompleted = true;
+            lastPaidContent = generateContentHash();
+            
+            // Add payment to user history
+            if (currentUser) {
+                const user = userDatabase[currentUser.email];
+                if (!user.paymentHistory) user.paymentHistory = [];
+                user.paymentHistory.push({
+                    id: 'payment_' + Date.now(),
+                    amount: '1.00',
+                    date: Date.now(),
+                    status: 'completed',
+                    method: 'PayPal'
+                });
                 
-                alert('Payment successful! You can now download your CV.');
-            }, 2000);
+                localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
+            }
+            
+            // Show success UI
+            document.getElementById('payBtn').style.display = 'none';
+            document.getElementById('paymentSuccess').style.display = 'block';
+            
+            // Clean up stored CV data
+            localStorage.removeItem('cvcraft_pending_cv');
+            
+            showNotification('Payment successful! You can now download your CV.', 'success');
         }
 
         function handlePhotoUpload(event) {
@@ -3955,69 +4007,20 @@
         `;
         document.head.appendChild(style);
 
-        // Enhanced payment processing with user tracking
-        function processPayment() {
-            if (!currentUser) {
-                showNotification('Please login to make a payment.', 'error');
-                showAuthModal('login');
-                return;
+        // Check for payment completion on page load
+        function checkPendingPayment() {
+            const pendingCV = localStorage.getItem('cvcraft_pending_cv');
+            if (pendingCV) {
+                // Ask user if they completed payment
+                setTimeout(() => {
+                    const completed = confirm('It looks like you have a pending payment. Did you complete the PayPal payment? Click OK if yes, Cancel if no.');
+                    if (completed) {
+                        handlePaymentSuccess();
+                    } else {
+                        localStorage.removeItem('cvcraft_pending_cv');
+                    }
+                }, 1000);
             }
-            
-            const cardNumber = document.getElementById('cardNumber').value;
-            const cardExpiry = document.getElementById('cardExpiry').value;
-            const cardCvv = document.getElementById('cardCvv').value;
-            
-            // Basic validation
-            if (!cardNumber || cardNumber.replace(/\s/g, '').length < 16) {
-                showNotification('Please enter a valid card number', 'error');
-                return;
-            }
-            
-            if (!cardExpiry || cardExpiry.length < 5) {
-                showNotification('Please enter a valid expiry date', 'error');
-                return;
-            }
-            
-            if (!cardCvv || cardCvv.length < 3) {
-                showNotification('Please enter a valid CVV', 'error');
-                return;
-            }
-            
-            const payBtn = document.getElementById('payBtn');
-            const originalText = payBtn.textContent;
-            payBtn.textContent = '💳 Processing Payment...';
-            payBtn.disabled = true;
-            
-            setTimeout(() => {
-                try {
-                    paymentCompleted = true;
-                    lastPaidContent = generateContentHash();
-                    
-                    // Add payment to user history
-                    const user = userDatabase[currentUser.email];
-                    if (!user.paymentHistory) user.paymentHistory = [];
-                    user.paymentHistory.push({
-                        id: 'payment_' + Date.now(),
-                        amount: '1.00',
-                        date: Date.now(),
-                        status: 'completed'
-                    });
-                    
-                    // Save to localStorage
-                    localStorage.setItem('cvcraft_users', JSON.stringify(userDatabase));
-                    
-                    document.getElementById('paymentForm').style.display = 'none';
-                    payBtn.style.display = 'none';
-                    document.getElementById('paymentSuccess').style.display = 'block';
-                    
-                    showNotification('Payment successful! You can now download your CV.', 'success');
-                } catch (error) {
-                    console.error('Payment processing error:', error);
-                    payBtn.textContent = originalText;
-                    payBtn.disabled = false;
-                    showNotification('Payment processing failed. Please try again.', 'error');
-                }
-            }, 2000);
         }
 
         async function downloadPDF() {
@@ -5454,20 +5457,7 @@
         loadLanguage();
         updatePreview();
         checkAuthStatus();
+        checkPendingPayment();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e9f0c407d811b5',t:'MTc1NTEwNjIyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html><!-- ...existing code... -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CVCraft Pro - Professional CV Builder</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-898B8Z3X68"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-898B8Z3X68');
-    </script>
-    <!-- ...other head content... -->
-<!-- ...existing code... -->
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97038d32b74011be',t:'MTc1NTM3NDc3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
