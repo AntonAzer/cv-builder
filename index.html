@@ -1532,6 +1532,29 @@
 
 </head>
 <body>
+        <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBHOB-vT--eUZFt1I6PiLDzZ4HJat6fJ1Y",
+    authDomain: "cvcraftpro-89c37.firebaseapp.com",
+    projectId: "cvcraftpro-89c37",
+    storageBucket: "cvcraftpro-89c37.firebasestorage.app",
+    messagingSenderId: "764102825806",
+    appId: "1:764102825806:web:40f84d03064e94c636f01f",
+    measurementId: "G-N8VE6CJG8G"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-content">
